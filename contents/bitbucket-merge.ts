@@ -7,49 +7,31 @@ export const config: PlasmoCSConfig = {
 
 export {}
 
-function waitForElement(
-  selector: string,
-  timeout = 5000
-): Promise<HTMLElement> {
-  return new Promise((resolve, reject) => {
-    const intervalTime = 100
-    let timePassed = 0
-
-    const interval = setInterval(() => {
-      const el = document.querySelector<HTMLElement>(selector)
-      if (el) {
-        clearInterval(interval)
-        resolve(el)
-      }
-      timePassed += intervalTime
-      if (timePassed >= timeout) {
-        clearInterval(interval)
-        reject(new Error("Element not found"))
-      }
-    }, intervalTime)
-  })
+function clearCommitMessage(textarea: HTMLTextAreaElement) {
+  textarea.value = ""
+  // Dispatching the input event ensures that any event listeners or bindings (e.g., React's onChange) are triggered,
+  // keeping the application state in sync with the DOM.
+  textarea.dispatchEvent(new Event("input", { bubbles: true }))
+  console.log("[plasmo] Cleared commit message.")
 }
 
-async function clearCommitMessage() {
-  try {
-    const textarea = (await waitForElement(
-      'textarea[name="merge-dialog-commit-message-textfield"]'
-    )) as HTMLTextAreaElement
-    textarea.value = ""
-    textarea.dispatchEvent(new Event("input", { bubbles: true }))
-    console.log("[plasmo] Cleared commit message.")
-  } catch (err) {
-    console.warn("[plasmo] Could not find commit message box:", err)
-  }
-}
+const TEXTAREA_SELECTOR =
+  'textarea[name="merge-dialog-commit-message-textfield"]'
+const MODAL_SELECTOR = 'section[role="dialog"]'
 
 const observer = new MutationObserver(() => {
-  const modal = document.querySelector(
-    'textarea[name="merge-dialog-commit-message-textfield"]'
-  )
-  if (modal) {
-    clearCommitMessage()
-    observer.disconnect()
+  const modal = document
+    .querySelector(TEXTAREA_SELECTOR)
+    ?.closest(MODAL_SELECTOR)
+
+  if (!modal) return
+
+  const textarea = modal.querySelector(
+    TEXTAREA_SELECTOR
+  ) as HTMLTextAreaElement | null
+
+  if (textarea) {
+    clearCommitMessage(textarea)
   }
 })
 

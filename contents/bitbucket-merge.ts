@@ -7,7 +7,17 @@ export const config: PlasmoCSConfig = {
 
 export {};
 
+let originalCommitMessage = "";
+
+function handleTextareaInput(event: Event) {
+  const textarea = event.target as HTMLTextAreaElement;
+  const commitMessage = textarea.value;
+  console.log("[plasmo] Commit message:", commitMessage);
+}
+
 function clearCommitMessage(textarea: HTMLTextAreaElement) {
+  originalCommitMessage = textarea.value;
+  console.log("[plasmo] Original commit message:", originalCommitMessage);
   textarea.value = "";
   // Dispatching the input event ensures that any event listeners or bindings (e.g., React's onChange) are triggered,
   // keeping the application state in sync with the DOM.
@@ -29,6 +39,7 @@ const observer = new MutationObserver(() => {
 
   if (modal && textarea && !modal.dataset.opened) {
     clearCommitMessage(textarea);
+    textarea.addEventListener("input", handleTextareaInput);
     modal.dataset.opened = "true";
   }
 });

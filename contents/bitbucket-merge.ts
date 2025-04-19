@@ -15,18 +15,21 @@ function clearCommitMessage(textarea: HTMLTextAreaElement) {
   console.log("[plasmo] Cleared commit message.");
 }
 
-const TEXTAREA_SELECTOR = 'textarea[name="merge-dialog-commit-message-textfield"]';
-const MODAL_SELECTOR = 'section[role="dialog"]';
+function findBitbucketElements(): { modal: HTMLElement | null; textarea: HTMLTextAreaElement | null } {
+  const textarea = document.querySelector(
+    'textarea[name="merge-dialog-commit-message-textfield"]',
+  ) as HTMLTextAreaElement | null;
+  const modal = textarea?.closest('section[role="dialog"]') as HTMLElement | null;
+
+  return { modal, textarea };
+}
 
 const observer = new MutationObserver(() => {
-  const modal = document.querySelector(TEXTAREA_SELECTOR)?.closest(MODAL_SELECTOR);
+  const { modal, textarea } = findBitbucketElements();
 
-  if (!modal) return;
-
-  const textarea = modal.querySelector(TEXTAREA_SELECTOR) as HTMLTextAreaElement | null;
-
-  if (textarea) {
+  if (modal && textarea && !modal.dataset.opened) {
     clearCommitMessage(textarea);
+    modal.dataset.opened = "true";
   }
 });
 

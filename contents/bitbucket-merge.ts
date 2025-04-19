@@ -44,26 +44,18 @@ function lintCommitMessage(message: string): {
   return { isValid: true, errors: [] };
 }
 
-function disableMergeButton(disable: boolean) {
-  const { mergeButton } = findBitbucketElements();
-  if (mergeButton) {
-    mergeButton.disabled = disable;
-  }
-}
-
 function validateCommitMessage(commitMessage: string, textarea: HTMLTextAreaElement): boolean {
   const { isValid, errors } = lintCommitMessage(commitMessage);
-  const errorMessageElement = document.getElementById("commit-message-error");
+  const errorMessageElement = document.getElementById("lint-error-message");
 
   if (!isValid) {
-    textarea.style.borderColor = "var(--ds-border-danger)";
+    textarea.style.borderColor = "var(--ds-border-warning)";
 
     if (errorMessageElement) {
       errorMessageElement.textContent = errors.join(" ");
       errorMessageElement.style.display = "block";
     }
 
-    disableMergeButton(true);
     return false;
   } else {
     textarea.style.borderColor = "";
@@ -72,9 +64,20 @@ function validateCommitMessage(commitMessage: string, textarea: HTMLTextAreaElem
       errorMessageElement.style.display = "none";
     }
 
-    disableMergeButton(false);
     return true;
   }
+}
+
+function findBitbucketElements(): {
+  modal: HTMLElement | null;
+  textarea: HTMLTextAreaElement | null;
+} {
+  const textarea = document.querySelector(
+    'textarea[name="merge-dialog-commit-message-textfield"]',
+  ) as HTMLTextAreaElement | null;
+  const modal = textarea?.closest('section[role="dialog"]') as HTMLElement | null;
+
+  return { modal, textarea };
 }
 
 function clearCommitMessage(textarea: HTMLTextAreaElement) {
@@ -83,29 +86,12 @@ function clearCommitMessage(textarea: HTMLTextAreaElement) {
   textarea.dispatchEvent(new Event("input", { bubbles: true }));
 }
 
-function findBitbucketElements(): {
-  modal: HTMLElement | null;
-  textarea: HTMLTextAreaElement | null;
-  mergeButton: HTMLButtonElement | null;
-} {
-  const textarea = document.querySelector(
-    'textarea[name="merge-dialog-commit-message-textfield"]',
-  ) as HTMLTextAreaElement | null;
-  const modal = textarea?.closest('section[role="dialog"]') as HTMLElement | null;
-
-  const mergeButton = modal?.querySelector('div[role="group"] button:first-of-type') as HTMLButtonElement | null;
-
-  return { modal, textarea, mergeButton };
-}
-
 function createErrorMessageElement(textarea: HTMLTextAreaElement) {
   const errorMessageElement = document.createElement("div");
-  errorMessageElement.id = "commit-message-error";
-  errorMessageElement.style.font = "var(--ds-font-body-UNSAFE_small)";
-  errorMessageElement.style.color = "var(--ds-text-danger)";
+  errorMessageElement.id = "lint-error-message";
+  errorMessageElement.style.color = "var(--ds-text-warning)";
   errorMessageElement.style.marginBlockStart = "var(--ds-space-050)";
   errorMessageElement.style.display = "none";
-
   textarea.insertAdjacentElement("afterend", errorMessageElement);
   return errorMessageElement;
 }
@@ -113,7 +99,6 @@ function createErrorMessageElement(textarea: HTMLTextAreaElement) {
 function handleTextareaInput(event: Event) {
   const textarea = event.target as HTMLTextAreaElement;
   const commitMessage = textarea.value;
-
   validateCommitMessage(commitMessage, textarea);
 }
 

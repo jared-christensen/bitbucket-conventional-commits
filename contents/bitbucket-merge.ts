@@ -16,7 +16,7 @@ function lintCommitMessage(message: string): {
 } {
   const trimmed = message.trim();
 
-  const match = trimmed.match(/^\w+(\([\w\-]+\))?: .+/);
+  const match = trimmed.match(/^(\w+)(\([\w\-]+\))?: .+/);
   if (!match) {
     return {
       isValid: false,

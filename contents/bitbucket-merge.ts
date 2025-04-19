@@ -10,15 +10,13 @@ export {};
 
 let originalCommitMessage = "";
 
-const COMMIT_REGEX = /^(\w+)(\([\w\-]+\))?: .+/;
-
 function lintCommitMessage(message: string): {
   isValid: boolean;
   errors: string[];
 } {
   const trimmed = message.trim();
 
-  const match = trimmed.match(COMMIT_REGEX);
+  const match = trimmed.match(/^\w+(\([\w\-]+\))?: .+/);
   if (!match) {
     return {
       isValid: false,
@@ -46,65 +44,77 @@ function lintCommitMessage(message: string): {
   return { isValid: true, errors: [] };
 }
 
+function disableMergeButton(disable: boolean) {
+  const { mergeButton } = findBitbucketElements();
+  if (mergeButton) {
+    mergeButton.disabled = disable;
+  }
+}
+
 function validateCommitMessage(commitMessage: string, textarea: HTMLTextAreaElement): boolean {
   const { isValid, errors } = lintCommitMessage(commitMessage);
   const errorMessageElement = document.getElementById("commit-message-error");
 
   if (!isValid) {
-    console.log("[plasmo] Commit message failed linting:", errors);
-    textarea.style.border = "var(--ds-border-width) solid var(--ds-border-danger)";
-    textarea.style.borderRadius = "var(--ds-border-radius)";
+    textarea.style.borderColor = "var(--ds-border-danger)";
 
     if (errorMessageElement) {
       errorMessageElement.textContent = errors.join(" ");
       errorMessageElement.style.display = "block";
     }
+
+    disableMergeButton(true);
     return false;
   } else {
-    console.log("[plasmo] Commit message is valid.");
-    textarea.style.border = ""; // Reset border on validation success
-    textarea.style.borderRadius = "";
+    textarea.style.borderColor = "";
 
     if (errorMessageElement) {
       errorMessageElement.style.display = "none";
     }
+
+    disableMergeButton(false);
     return true;
   }
-}
-
-function handleTextareaInput(event: Event) {
-  const textarea = event.target as HTMLTextAreaElement;
-  const commitMessage = textarea.value;
-  console.log("[plasmo] Commit message:", commitMessage);
-
-  validateCommitMessage(commitMessage, textarea);
 }
 
 function clearCommitMessage(textarea: HTMLTextAreaElement) {
   originalCommitMessage = textarea.value;
   textarea.value = "";
-  // Dispatching the input event ensures that any event listeners or bindings (e.g., React's onChange) are triggered,
-  // keeping the application state in sync with the DOM.
   textarea.dispatchEvent(new Event("input", { bubbles: true }));
 }
 
-function findBitbucketElements(): { modal: HTMLElement | null; textarea: HTMLTextAreaElement | null } {
+function findBitbucketElements(): {
+  modal: HTMLElement | null;
+  textarea: HTMLTextAreaElement | null;
+  mergeButton: HTMLButtonElement | null;
+} {
   const textarea = document.querySelector(
     'textarea[name="merge-dialog-commit-message-textfield"]',
   ) as HTMLTextAreaElement | null;
   const modal = textarea?.closest('section[role="dialog"]') as HTMLElement | null;
 
-  return { modal, textarea };
+  const mergeButton = modal?.querySelector('div[role="group"] button:first-of-type') as HTMLButtonElement | null;
+
+  return { modal, textarea, mergeButton };
 }
 
-function createErrorMessageElement() {
+function createErrorMessageElement(textarea: HTMLTextAreaElement) {
   const errorMessageElement = document.createElement("div");
   errorMessageElement.id = "commit-message-error";
   errorMessageElement.style.font = "var(--ds-font-body-UNSAFE_small)";
   errorMessageElement.style.color = "var(--ds-text-danger)";
   errorMessageElement.style.marginBlockStart = "var(--ds-space-050)";
   errorMessageElement.style.display = "none";
+
+  textarea.insertAdjacentElement("afterend", errorMessageElement);
   return errorMessageElement;
+}
+
+function handleTextareaInput(event: Event) {
+  const textarea = event.target as HTMLTextAreaElement;
+  const commitMessage = textarea.value;
+
+  validateCommitMessage(commitMessage, textarea);
 }
 
 const observer = new MutationObserver(() => {
@@ -112,11 +122,9 @@ const observer = new MutationObserver(() => {
 
   if (modal && textarea && !modal.dataset.opened) {
     clearCommitMessage(textarea);
+    createErrorMessageElement(textarea);
     textarea.addEventListener("input", handleTextareaInput);
     modal.dataset.opened = "true";
-
-    const errorMessageElement = createErrorMessageElement();
-    textarea.insertAdjacentElement("afterend", errorMessageElement);
   }
 });
 

@@ -1,0 +1,31 @@
+button.bcc-generate-commit-message {
+  background-color: #8e4ebc;
+  color: white;
+  border-radius: 3px;
+  padding: 6px 12px;
+  font-weight: 500;
+  font-size: 14px;
+  line-height: 20px;
+  border: none;
+  cursor: pointer;
+  margin-top: 8px;
+  margin-bottom: 2px;
+}
+
+button.bcc-generate-commit-message:hover {
+  background-color: #7943a2;
+}
+
+button.bcc-generate-commit-message:active {
+  background-color: #44265b;
+}
+
+button.bcc-generate-commit-message:focus-visible {
+  outline: 2px solid #2684ff;
+  outline-offset: 2px;
+}
+
+div.bcc-lint-error-message {
+  color: var(--ds-text-warning);
+  margin: 8px 0 0 0;
+}

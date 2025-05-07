@@ -21,34 +21,51 @@ export async function generateCommitMessage({
   }
 
   const prompt = `
-You are an assistant that writes high-quality Conventional Commit messages.
+  You are a Conventional Commit expert generating clean, standards-compliant messages.
 
-Your task is to generate a single, well-structured Conventional Commit message based on the pull request details below. Prioritize the pull request title and description as the main source of truth. Use commit messages only as supporting context.
+  Your task is to generate a single, well-structured Conventional Commit message based on the pull request details below. Prioritize the pull request title first, then the description. Use user comments only if they add missing context.
 
-Format:
-type(scope): concise summary of the change [optional Jira ID at end, e.g. BRAVO-123]
+  Format:
+  type(scope): description [Jira ID, if present]
 
-Rules:
-- Use a valid type: feat, fix, docs, style, refactor, perf, test, chore
-- Use an optional scope in parentheses to indicate the area affected
-- Start the summary with a lowercase verb (e.g., add, fix, update, remove)
-- Do not end the message with a period
-- Be clear and specific; avoid vague terms like "stuff" or "changes"
-- If the changes cover multiple areas (e.g., fix and refactor), generate a single combined message that reflects the scope and intent
+  Rules:
+  - Use a valid type: build, chore, ci, docs, feat, fix, perf, refactor, revert, style, test
+  - Scope must be relevant and in kebab-case (e.g., ui-button); if no clear scope, use empty parentheses in the message (e.g., fix(): description)
+  - Start the description with a lowercase present-tense verb (e.g., add, fix, update, remove)
+  - Do not end the message with a period
+  - Keep the message under 100 characters total (including type, scope, description, and Jira ID)
+  - Be specific; avoid vague terms like "stuff" or "changes"
+  - If changes cover multiple types (e.g., fix and refactor), combine them (e.g., fix/refactor(scope): description)
+  - If a Jira ID is present, add it at the end in square brackets (e.g., [PROJ-1234]) with no punctuation after
 
-Pull Request Title:
-${prTitle}
+  Pull Request Title:
+  ${prTitle}
 
-Jira ID:
-${jiraId}
+  Jira ID:
+  ${jiraId}
 
-Pull Request Description:
-${prDescription}
+  Pull Request Description:
+  ${prDescription}
 
-User Input:
-${textareaValue}
+  User Comments:
+  ${textareaValue}
 
-Respond with only the final commit message. Do not include explanations.
+  Respond with the commit message only. No extra text or explanations.
+  ---
+  ❌ Bad examples (do not follow these):
+  - "This fixes a bunch of things." ← vague, lacks type and scope
+  - "fix: updated the button to be better." ← past tense, not kebab-case, ends in a period
+  - "add login feature [PROJ-1234]" ← missing type/scope format
+  - "fix(login-button): added validation." ← past tense, ends in period
+  - "refactor(): improvements to the whole codebase" ← vague description
+  ---
+  ✅ Good examples:
+  - fix(auth-modal): prevent double submit on login [BRAVO-421]
+  - feat(user-settings): add dark mode toggle [DESIGN-122]
+  - refactor(): simplify API response handling
+  - docs(readme): update contributing section
+  - test(button): add accessibility tests for keyboard nav
+  ---
   `.trim();
 
   const response = await fetch("https://api.openai.com/v1/chat/completions", {

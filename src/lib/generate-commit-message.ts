@@ -34,7 +34,7 @@ export async function generateCommitMessage({
   - Start the description with a lowercase present-tense verb (e.g., add, fix, update, remove)
   - Use plain, easy-to-understand language. Write like you're explaining the change to a teammate on Slack.
   - Do not end the message with a period
-  - Keep the entire message strictly under 100 characters. Do not exceed this limit under any circumstances.
+  - Try to keep the entire message under 100 characters.
   - Be specific; avoid vague terms like "stuff" or "changes"
   - If changes cover multiple types (e.g., fix and refactor), combine them (e.g., fix/refactor(scope): description)
   - If a Jira ID is present, add it at the end in square brackets (e.g., [PROJ-1234]) with no punctuation after
@@ -85,7 +85,7 @@ export async function generateCommitMessage({
         },
       ],
       temperature: 0.3,
-      max_tokens: 40,
+      max_tokens: 60,
     }),
   });
 

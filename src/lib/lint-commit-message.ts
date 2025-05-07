@@ -71,13 +71,6 @@ export function lintCommitMessage(message: string): {
     };
   }
 
-  if (trimmed.length > 100) {
-    return {
-      isValid: false,
-      errors: ["Must not exceed 100 characters."],
-    };
-  }
-
   if (jiraId && !/\[[A-Z]+-\d+\]$/.test(trimmed)) {
     return {
       isValid: false,

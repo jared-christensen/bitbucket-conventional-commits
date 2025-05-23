@@ -17,7 +17,7 @@ export function lintCommitMessage(message: string): {
     };
   }
 
-  const match = trimmed.match(/^([a-z]+)\((.+)\): .+/);
+  const match = trimmed.match(/^([a-z]+)(\(([a-z0-9\-]+)\))?: .+/);
   if (!match) {
     return {
       isValid: false,
@@ -25,12 +25,19 @@ export function lintCommitMessage(message: string): {
     };
   }
 
-  const [_, type, scope] = match;
+  const [_, type, , scope] = match;
 
-  if (!/^[a-z0-9\-]+$/.test(scope)) {
+  if (scope && !/^[a-z0-9\-]+$/.test(scope)) {
     return {
       isValid: false,
       errors: ["Scope must be in kebab-case. Example: test-md"],
+    };
+  }
+
+  if (scope && /[A-Z]/.test(scope)) {
+    return {
+      isValid: false,
+      errors: ["Scope must be lowercase. Example: auth, user-settings"],
     };
   }
 
@@ -57,13 +64,6 @@ export function lintCommitMessage(message: string): {
     };
   }
 
-  if (/^[A-Z]/.test(description.trim())) {
-    return {
-      isValid: false,
-      errors: ["Start with a lowercase letter. Example: add button"],
-    };
-  }
-
   if (/[.!?]$/.test(description.trim())) {
     return {
       isValid: false,
@@ -71,10 +71,28 @@ export function lintCommitMessage(message: string): {
     };
   }
 
-  if (jiraId && !/\[[A-Z]+-\d+\]$/.test(trimmed)) {
+  const lines = trimmed.split("\n");
+  const firstLine = lines[0];
+  const footerLines = lines.slice(1);
+
+  if (jiraId && firstLine.includes(jiraId)) {
     return {
       isValid: false,
-      errors: ["Jira ID must be at the end in square brackets. Example: [PROJ-1234]."],
+      errors: ["Move the Jira ID to the footer, not the subject line."],
+    };
+  }
+
+  if (jiraId && !footerLines.some((line) => line.includes(jiraId))) {
+    return {
+      isValid: false,
+      errors: ["Jira ID must be included in the footer (after the first line)."],
+    };
+  }
+
+  if (/^[A-Z]/.test(description.trim())) {
+    return {
+      isValid: false,
+      errors: ["Start with a lowercase letter. Example: add button"],
     };
   }
 

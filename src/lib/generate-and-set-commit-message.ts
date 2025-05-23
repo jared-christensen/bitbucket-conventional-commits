@@ -33,7 +33,7 @@ export async function generateAndSetCommitMessage() {
       setTextAreaValue(newMessage);
     }
   } catch (error) {
-    setTextAreaValue("Error generating commit message.");
+    setTextAreaValue(`${error}`);
   } finally {
     button.textContent = originalButtonText;
     button.disabled = false;

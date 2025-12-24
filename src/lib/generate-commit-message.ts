@@ -2,9 +2,9 @@ import { Storage } from "@plasmohq/storage";
 
 import type { Options } from "~schema/options-schema";
 
+import { generateWithChromeAI } from "./ai-providers/chrome-ai";
+import { generateWithOpenAI } from "./ai-providers/openai";
 import { buildPrompt } from "./build-prompt";
-
-const model = "gpt-3.5-turbo";
 
 export async function generateCommitMessage({
   textareaValue,
@@ -19,38 +19,23 @@ export async function generateCommitMessage({
 }): Promise<string | null> {
   const storage = new Storage();
   const options = await storage.get<Options>("options");
-
-  if (!options?.apiKey) {
-    throw new Error("OpenAI API key not found");
-  }
-
+  const provider = options?.aiProvider ?? "chrome";
   const prompt = buildPrompt(textareaValue, prTitle, prDescription);
 
-  const response = await fetch("https://api.openai.com/v1/chat/completions", {
-    method: "POST",
-    headers: {
-      Authorization: `Bearer ${options.apiKey}`,
-      "Content-Type": "application/json",
-    },
-    body: JSON.stringify({
-      model,
-      messages: [
-        {
-          role: "user",
-          content: prompt,
-        },
-      ],
-      temperature: 0.3,
-      max_tokens: 100,
-    }),
-  });
+  const appendJiraId = (result: string | null) =>
+    result && jiraId ? `${result}\n${jiraId}` : result;
 
-  if (!response.ok) {
-    const { error } = await response.json();
-    throw new Error(error?.message || `OpenAI API error: ${response.status}`);
+  if (provider === "chrome") {
+    const result = await generateWithChromeAI(prompt);
+    if (result) {
+      return appendJiraId(result);
+    }
+    throw new Error("Chrome AI not available. Check Chrome AI settings.");
   }
 
-  const json = await response.json();
-  const commitMessage = json.choices?.[0]?.message?.content?.trim() ?? null;
-  return commitMessage && jiraId ? `${commitMessage}\n${jiraId}` : commitMessage;
+  if (!options?.apiKey) {
+    throw new Error("No OpenAI API key configured.");
+  }
+  const result = await generateWithOpenAI(prompt, options.apiKey);
+  return appendJiraId(result);
 }

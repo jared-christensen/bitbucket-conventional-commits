@@ -13,7 +13,7 @@ import "~styles/content.css";
 import { findTextArea } from "~utils/find-text-area";
 
 export const config: PlasmoCSConfig = {
-  matches: ["https://bitbucket.org/*/pull-requests/*"],
+  matches: ["https://bitbucket.org/*"],
   run_at: "document_end",
 };
 
@@ -28,7 +28,6 @@ documentObserver((modal: HTMLElement) => {
     createGenerateButton(textarea, generateAndSetCommitMessage);
     createErrorMessageElement(textarea);
     validateTextAreaChanges(textarea);
-
     setTextAreaValue("");
   }
 });

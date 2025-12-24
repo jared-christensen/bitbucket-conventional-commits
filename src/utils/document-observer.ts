@@ -5,10 +5,12 @@ export function documentObserver(handleModalInitialization: (modal: HTMLElement)
 
   const observer = new MutationObserver(() => {
     const modal = findModal();
-    // Only act on modals that contain the merge commit textarea
-    if (modal && !modal.dataset.bccInitialized && modal.querySelector(mergeTextareaSelector)) {
+    const textarea = modal?.querySelector(mergeTextareaSelector);
+    const hasOurUI = modal?.querySelector(".bcc-generate-commit-message");
+
+    // Initialize if modal has textarea but our UI is missing (e.g., after switching from fast-forward)
+    if (modal && textarea && !hasOurUI) {
       handleModalInitialization(modal);
-      modal.dataset.bccInitialized = "true";
     }
   });
 

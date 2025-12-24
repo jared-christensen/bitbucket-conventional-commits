@@ -19,7 +19,7 @@ export function lintCommitMessage(message: string): {
     return { isValid: false, errors: ["Format: type(scope): description. Scope must be kebab-case."] };
   }
 
-  const [, type, , ] = match;
+  const [, type] = match;
   const description = trimmed.split(": ").slice(1).join(": ");
 
   const allowedTypes = commitlintConfig.rules["type-enum"]?.[2] || [];

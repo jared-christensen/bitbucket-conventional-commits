@@ -16,7 +16,7 @@ export function lintCommitMessage(message: string): {
   // Regex enforces: lowercase type, optional kebab-case scope, description
   const match = trimmed.match(/^([a-z]+)(\(([a-z0-9-]+)\))?: .+/);
   if (!match) {
-    return { isValid: false, errors: ["Format must be: type(scope): description"] };
+    return { isValid: false, errors: ["Format: type(scope): description. Scope must be kebab-case."] };
   }
 
   const [, type, , ] = match;

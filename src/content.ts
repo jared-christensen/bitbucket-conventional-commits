@@ -20,6 +20,7 @@ documentObserver((modal: HTMLElement) => {
   const textarea = findTextArea();
 
   if (textarea) {
+    textarea.placeholder = "Describe what you changed and why, then hit Generate";
     createGenerateButton(textarea, generateAndSetCommitMessage);
     setupValidation(textarea, modal);
     setTextAreaValue("");

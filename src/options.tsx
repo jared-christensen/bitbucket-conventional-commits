@@ -1,34 +1,31 @@
 import { zodResolver } from "@hookform/resolvers/zod";
+import { Download, Eye, EyeOff, Loader2 } from "lucide-react";
 import { useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
+import { toast, Toaster } from "sonner";
 import { z } from "zod";
 
 import { Storage } from "@plasmohq/storage";
-
-import "~styles/globals.css";
 
 import { Button } from "@/src/components/ui/button";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/src/components/ui/card";
 import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from "@/src/components/ui/form";
 import { Input } from "@/src/components/ui/input";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/src/components/ui/select";
-import { toast, Toaster } from "sonner";
-import { Download, Eye, EyeOff, Loader2 } from "lucide-react";
-
+import { useChromeAI } from "~hooks/use-chrome-ai";
+import { useOpenAI } from "~hooks/use-openai";
 import { optionsSchema, type Options } from "~schema/options-schema";
 
-import "~types/chrome-ai.d";
-
-type ChromeAIStatus = "checking" | "unavailable" | "not-enabled" | "downloadable" | "downloading" | "available";
-type OpenAIStatus = "unconfigured" | "valid" | "invalid";
+import "~styles/globals.css";
 
 const storage = new Storage();
 
 const OptionsIndex = () => {
   const [isSaving, setIsSaving] = useState(false);
-  const [chromeAIStatus, setChromeAIStatus] = useState<ChromeAIStatus>("checking");
-  const [openAIStatus, setOpenAIStatus] = useState<OpenAIStatus>("unconfigured");
-  const [isDownloading, setIsDownloading] = useState(false);
+  const [showApiKey, setShowApiKey] = useState(false);
+
+  const chromeAI = useChromeAI();
+  const openAI = useOpenAI();
 
   const form = useForm<z.infer<typeof optionsSchema>>({
     resolver: zodResolver(optionsSchema),
@@ -38,76 +35,18 @@ const OptionsIndex = () => {
     },
   });
 
-  const checkChromeAI = async () => {
-    if (typeof LanguageModel === "undefined") {
-      setChromeAIStatus("not-enabled");
-      return;
-    }
-
-    try {
-      const availability = await LanguageModel.availability();
-      setChromeAIStatus(availability === "unavailable" ? "unavailable" : availability);
-    } catch {
-      setChromeAIStatus("unavailable");
-    }
-  };
-
-  const downloadChromeAI = async () => {
-    if (typeof LanguageModel === "undefined") return;
-
-    setIsDownloading(true);
-    setChromeAIStatus("downloading");
-
-    try {
-      const session = await LanguageModel.create();
-      session.destroy();
-      setChromeAIStatus("available");
-    } catch {
-      checkChromeAI();
-    } finally {
-      setIsDownloading(false);
-    }
-  };
-
-  const testOpenAIKey = async (apiKey: string): Promise<boolean> => {
-    try {
-      const response = await fetch("https://api.openai.com/v1/chat/completions", {
-        method: "POST",
-        headers: {
-          Authorization: `Bearer ${apiKey}`,
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({
-          model: "gpt-3.5-turbo",
-          messages: [{ role: "user", content: "Say hello" }],
-          temperature: 0.3,
-          max_tokens: 10,
-        }),
-      });
-      return response.ok;
-    } catch {
-      return false;
-    }
-  };
-
   useEffect(() => {
     const loadOptions = async () => {
       const options = await storage.get<Options>("options");
       if (options) {
-        form.reset(options);
-        if (options.apiKey) {
-          setOpenAIStatus("valid");
-        }
+        // Backwards compatibility: if user has an API key but no explicit provider choice,
+        // they were using the extension before Chrome AI was added - default to OpenAI
+        const effectiveProvider = options.aiProvider ?? (options.apiKey ? "openai" : "chrome");
+        form.reset({ ...options, aiProvider: effectiveProvider });
       }
     };
     loadOptions();
-    checkChromeAI();
   }, [form]);
-
-  const [showApiKey, setShowApiKey] = useState(false);
-  const [chromeAITestResult, setChromeAITestResult] = useState<"success" | "error" | null>(null);
-  const [openAITestResult, setOpenAITestResult] = useState<"success" | "error" | null>(null);
-  const [saveResult, setSaveResult] = useState<"success" | "invalid" | null>(null);
 
   const handleSave = async (values: z.infer<typeof optionsSchema>) => {
     setIsSaving(true);
@@ -140,9 +79,8 @@ const OptionsIndex = () => {
                       onValueChange={(value) => {
                         field.onChange(value);
                         storage.set("options", { ...form.getValues(), aiProvider: value });
-                        setChromeAITestResult(null);
-                        setOpenAITestResult(null);
-                        setSaveResult(null);
+                        chromeAI.clearTestResult();
+                        openAI.clearTestResult();
                       }}
                       value={field.value}>
                       <FormControl>
@@ -172,54 +110,42 @@ const OptionsIndex = () => {
 
                 <div className="text-sm space-y-2">
                   <p>2. Download model (~1.5GB):</p>
-                  {chromeAIStatus === "checking" && (
+                  {chromeAI.status === "checking" && (
                     <div className="flex items-center gap-2">
                       <Loader2 className="h-4 w-4 animate-spin" />
                       Checking...
                     </div>
                   )}
-                  {chromeAIStatus === "downloadable" && (
-                    <Button size="sm" onClick={downloadChromeAI} disabled={isDownloading}>
+                  {chromeAI.status === "downloadable" && (
+                    <Button size="sm" onClick={chromeAI.download}>
                       <Download className="mr-2 h-4 w-4" />
                       Download
                     </Button>
                   )}
-                  {chromeAIStatus === "downloading" && (
+                  {chromeAI.status === "downloading" && (
                     <div className="flex items-center gap-2">
                       <Loader2 className="h-4 w-4 animate-spin" />
                       Downloading... This may take a few minutes.
                     </div>
                   )}
-                  {chromeAIStatus === "available" && (
+                  {chromeAI.status === "available" && (
                     <Button size="sm" disabled>
                       Downloaded
                     </Button>
                   )}
-                  {(chromeAIStatus === "unavailable" || chromeAIStatus === "not-enabled") && (
+                  {(chromeAI.status === "unavailable" || chromeAI.status === "not-enabled") && (
                     <span className="text-red-600">Enable the flag and restart Chrome.</span>
                   )}
                 </div>
 
                 <div className="flex items-center gap-3">
-                  <Button
-                    variant="outline"
-                    size="sm"
-                    onClick={async () => {
-                      try {
-                        const session = await LanguageModel.create();
-                        await session.prompt("Say hi");
-                        session.destroy();
-                        setChromeAITestResult("success");
-                      } catch {
-                        setChromeAITestResult("error");
-                      }
-                    }}>
+                  <Button variant="outline" size="sm" onClick={chromeAI.test}>
                     Test
                   </Button>
-                  {chromeAITestResult === "success" && (
+                  {chromeAI.testResult === "success" && (
                     <span className="text-sm text-green-600">Ready to use.</span>
                   )}
-                  {chromeAITestResult === "error" && (
+                  {chromeAI.testResult === "error" && (
                     <span className="text-sm text-red-600">Test failed.</span>
                   )}
                 </div>
@@ -261,22 +187,13 @@ const OptionsIndex = () => {
                       type="button"
                       variant="outline"
                       size="sm"
-                      onClick={async () => {
-                        const apiKey = form.getValues("apiKey");
-                        if (!apiKey) return;
-                        const isValid = await testOpenAIKey(apiKey);
-                        if (isValid) {
-                          setOpenAITestResult("success");
-                        } else {
-                          setOpenAITestResult("error");
-                        }
-                      }}>
+                      onClick={() => openAI.test(form.getValues("apiKey"))}>
                       Test
                     </Button>
-                    {openAITestResult === "success" && (
+                    {openAI.testResult === "success" && (
                       <span className="text-sm text-green-600">Ready to use.</span>
                     )}
-                    {openAITestResult === "error" && (
+                    {openAI.testResult === "error" && (
                       <span className="text-sm text-red-600">Test failed.</span>
                     )}
                   </div>

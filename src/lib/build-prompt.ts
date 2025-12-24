@@ -1,27 +1,39 @@
 export function buildPrompt(textareaValue: string, prTitle: string, prDescription: string): string {
   return `
-  You are a Conventional Commit expert. Generate a one-line Conventional Commit message based on the user’s input and PR details.
+Generate a Conventional Commit message. Return ONLY the commit message, nothing else.
 
-  Use this format:
-  type(scope): description
+Format: type(scope): description
 
-  Guidelines:
-  - Only return the commit message — do not include explanations or a Jira ID
-  - Use valid types: build, chore, ci, docs, feat, fix, perf, refactor, revert, style, test
-  - Use a meaningful scope in kebab-case (e.g. user-settings, api-client)
-  - If no specific scope applies, omit the scope entirely (e.g. chore: update tooling)
-  - Start the description with a lowercase present-tense verb
-  - Be clear, concise (<100 chars), and changelog-friendly
-  - The message should make sense on its own in a changelog
+Types:
+- feat: new feature or capability
+- fix: bug fix
+- refactor: code change that neither fixes a bug nor adds a feature
+- docs: documentation only
+- test: adding or updating tests
+- chore: maintenance tasks, dependencies
+- style: formatting, whitespace (not CSS)
+- perf: performance improvement
+- build: build system or external dependencies
+- ci: CI configuration
+- revert: reverting a previous commit
 
-  User's Input:
-  ${textareaValue.trim()}
+Rules:
+- Start description with a verb: add, fix, update, remove, refactor, implement, improve, handle, prevent, support, enable, disable, replace, simplify, extract, rename, move, validate, ensure, allow
+- Use imperative mood ("add feature" not "added feature" or "adds feature")
+- No period at the end
+- Scope is optional; use kebab-case if included (e.g. user-auth, api-client)
+- Keep under 72 characters total
+- Be specific, not vague ("add password validation" not "update auth")
 
-  PR Title:
-  ${prTitle.trim()}
+Examples:
+- feat(auth): add OAuth2 login support
+- fix(cart): prevent duplicate items when clicking rapidly
+- refactor(api): extract validation logic into middleware
+- docs: update installation instructions
+- chore: upgrade webpack to v5
 
-  PR Description:
-  ${prDescription.trim()}
-
-  `.trim();
+${textareaValue.trim() ? `User's notes (prioritize this):\n${textareaValue.trim()}\n` : ""}
+PR Title: ${prTitle.trim()}
+${prDescription.trim() ? `\nPR Description:\n${prDescription.trim()}` : ""}
+`.trim();
 }

@@ -19,7 +19,9 @@ export async function generateCommitMessage({
 }): Promise<string | null> {
   const storage = new Storage();
   const options = await storage.get<Options>("options");
-  const provider = options?.aiProvider ?? "chrome";
+  // Backwards compatibility: if user has an API key but no explicit provider choice,
+  // they were using the extension before Chrome AI was added - default to OpenAI
+  const provider = options?.aiProvider ?? (options?.apiKey ? "openai" : "chrome");
   const prompt = buildPrompt(textareaValue, prTitle, prDescription);
 
   const appendJiraId = (result: string | null) =>

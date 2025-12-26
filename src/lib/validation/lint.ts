@@ -12,13 +12,29 @@ export function lintCommitMessage(message: string): {
   const jiraId = findJiraId(trimmed);
 
   if (!trimmed) {
-    return { isValid: false, errors: ["Message cannot be empty."] };
+    return { isValid: false, errors: ["Add a commit message."] };
+  }
+
+  // Check for ticket prefix (e.g. "ECHO-1046: feat...")
+  if (/^[A-Z]+-\d+/.test(trimmed)) {
+    return { isValid: false, errors: ["Move the ticket to the end, not the start."] };
+  }
+
+  // Check for missing colon after scope (e.g. "feat(scope) description")
+  if (/^[a-z]+\([^)]+\)\s+\w/.test(trimmed)) {
+    return { isValid: false, errors: ["Add a colon after the scope: type(scope): description"] };
+  }
+
+  // Check for scope that isn't kebab-case
+  const scopeMatch = trimmed.match(/^[a-z]+\(([^)]+)\):/);
+  if (scopeMatch && !/^[a-z0-9-]+$/.test(scopeMatch[1])) {
+    return { isValid: false, errors: ["Scope should be kebab-case (e.g. user-auth)."] };
   }
 
   // Regex enforces: lowercase type, optional kebab-case scope, description
   const match = trimmed.match(/^([a-z]+)(\(([a-z0-9-]+)\))?: .+/);
   if (!match) {
-    return { isValid: false, errors: ["Format: type(scope): description. Scope must be kebab-case."] };
+    return { isValid: false, errors: ["Try: type(scope): description or type: description"] };
   }
 
   const [, type] = match;
@@ -26,19 +42,19 @@ export function lintCommitMessage(message: string): {
 
   const allowedTypes = commitlintConfig.rules["type-enum"]?.[2] || [];
   if (!allowedTypes.includes(type)) {
-    return { isValid: false, errors: [`"${type}" is not a valid type. Allowed: feat, fix, chore, etc.`] };
+    return { isValid: false, errors: [`"${type}" isn't a standard type. Try feat, fix, chore, etc.`] };
   }
 
   if (!description) {
-    return { isValid: false, errors: ["Provide a description."] };
+    return { isValid: false, errors: ["Add a description after the colon."] };
   }
 
   if (/^[A-Z]/.test(description)) {
-    return { isValid: false, errors: ["Start with a lowercase letter."] };
+    return { isValid: false, errors: ["Lowercase descriptions are preferred."] };
   }
 
   if (/[.!?]$/.test(description)) {
-    return { isValid: false, errors: ["No ending punctuation."] };
+    return { isValid: false, errors: ["Skip the ending punctuation."] };
   }
 
   const lines = trimmed.split("\n");
@@ -46,11 +62,11 @@ export function lintCommitMessage(message: string): {
   const footerLines = lines.slice(1);
 
   if (jiraId && firstLine.includes(jiraId)) {
-    return { isValid: false, errors: ["Move the Jira ID to the footer, not the subject line."] };
+    return { isValid: false, errors: ["Consider moving the Jira ID to the footer."] };
   }
 
   if (jiraId && !footerLines.some((line) => line.includes(jiraId))) {
-    return { isValid: false, errors: ["Jira ID must be in the footer (after the first line)."] };
+    return { isValid: false, errors: ["The Jira ID works best in the footer."] };
   }
 
   return { isValid: true, errors: [] };

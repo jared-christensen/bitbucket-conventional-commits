@@ -2,15 +2,23 @@
 
 import { lintCommitMessage } from "./lint";
 
-export function validateTextAreaChanges(textarea: HTMLTextAreaElement, errorElement: HTMLElement) {
-  let validationEnabled = false;
+// Module-level state to track if Generate has been clicked
+let validationEnabled = false;
+let listenerAttached = false;
 
-  // Start validating after Generate is clicked
+function attachGenerateClickListener() {
+  if (listenerAttached) return;
+  listenerAttached = true;
+
   document.addEventListener("click", (e) => {
     if ((e.target as HTMLElement).classList.contains("bcc-generate-commit-message")) {
       validationEnabled = true;
     }
   });
+}
+
+export function validateTextAreaChanges(textarea: HTMLTextAreaElement, errorElement: HTMLElement) {
+  attachGenerateClickListener();
 
   textarea.addEventListener("input", () => {
     if (!validationEnabled) return;

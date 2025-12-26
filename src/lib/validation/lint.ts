@@ -25,6 +25,16 @@ export function lintCommitMessage(message: string): {
     return { isValid: false, errors: ["Add a colon after the scope: type(scope): description"] };
   }
 
+  // Check for space before scope (e.g. "feat (scope):")
+  if (/^[a-z]+\s+\(/.test(trimmed)) {
+    return { isValid: false, errors: ["Remove the space before the scope: type(scope):"] };
+  }
+
+  // Check for uppercase type (e.g. "FEAT:" or "Feat:")
+  if (/^[A-Z][a-zA-Z]*(\(|:)/.test(trimmed)) {
+    return { isValid: false, errors: ["Type should be lowercase (e.g. feat, fix, chore)."] };
+  }
+
   // Check for scope that isn't kebab-case
   const scopeMatch = trimmed.match(/^[a-z]+\(([^)]+)\):/);
   if (scopeMatch && !/^[a-z0-9-]+$/.test(scopeMatch[1])) {

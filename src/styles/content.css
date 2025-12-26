@@ -1,3 +1,10 @@
+.bcc-button-row {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-top: 8px;
+}
+
 button.bcc-generate-commit-message {
   background-color: #8e4ebc;
   color: white;
@@ -8,8 +15,8 @@ button.bcc-generate-commit-message {
   line-height: 20px;
   border: none;
   cursor: pointer;
-  margin-top: 8px;
-  margin-bottom: 2px;
+  white-space: nowrap;
+  align-self: flex-start;
 }
 
 button.bcc-generate-commit-message:hover {
@@ -25,7 +32,7 @@ button.bcc-generate-commit-message:focus-visible {
   outline-offset: 2px;
 }
 
-div.bcc-lint-error-message {
+.bcc-lint-error-message {
   color: var(--ds-text-warning);
-  margin: 8px 0 0 0;
+  font-size: 14px;
 }

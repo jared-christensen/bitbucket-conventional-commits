@@ -1,6 +1,8 @@
+// Commit message linting against conventional commit format
+
 import commitlintConfig from "@commitlint/config-conventional";
 
-import { findJiraId } from "~utils/find-jira-id";
+import { findJiraId } from "~utils/pr-context";
 
 export function lintCommitMessage(message: string): {
   isValid: boolean;

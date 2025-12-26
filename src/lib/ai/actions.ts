@@ -1,10 +1,9 @@
-import { findTextArea } from "~utils/find-text-area";
+// High-level action for generating and setting commit message
 
-import { findJiraId } from "../utils/find-jira-id";
-import { getPrDescription } from "../utils/get-pr-description";
-import { getPrTitle } from "../utils/get-pr-title";
-import { setTextAreaValue } from "../utils/set-textarea-value";
-import { generateCommitMessage } from "./generate-commit-message";
+import { findTextArea, setTextAreaValue } from "~utils/dom";
+import { findJiraId, getPrDescription, getPrTitle } from "~utils/pr-context";
+
+import { generateCommitMessage } from "./generate";
 
 export async function generateAndSetCommitMessage() {
   const textarea = findTextArea();
@@ -14,8 +13,8 @@ export async function generateAndSetCommitMessage() {
     return;
   }
 
-  const originalButtonText = button.textContent;
-  button.textContent = "Generating...";
+  const originalButtonHTML = button.innerHTML;
+  button.innerHTML = "Generating...";
   button.disabled = true;
 
   const prTitle = getPrTitle();
@@ -35,7 +34,7 @@ export async function generateAndSetCommitMessage() {
   } catch (error) {
     setTextAreaValue(`${error}`);
   } finally {
-    button.textContent = originalButtonText;
+    button.innerHTML = originalButtonHTML;
     button.disabled = false;
   }
 }

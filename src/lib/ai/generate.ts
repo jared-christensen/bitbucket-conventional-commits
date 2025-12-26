@@ -1,10 +1,11 @@
+// Main commit message generation logic
+
 import { Storage } from "@plasmohq/storage";
 
 import type { Options } from "~schema/options-schema";
 
-import { generateWithChromeAI } from "./ai-providers/chrome-ai";
-import { generateWithOpenAI } from "./ai-providers/openai";
-import { buildPrompt } from "./build-prompt";
+import { generateWithChromeAI, generateWithOpenAI } from "./providers";
+import { buildPrompt } from "./prompt";
 
 export async function generateCommitMessage({
   textareaValue,
@@ -19,6 +20,7 @@ export async function generateCommitMessage({
 }): Promise<string | null> {
   const storage = new Storage();
   const options = await storage.get<Options>("options");
+
   // Backwards compatibility: if user has an API key but no explicit provider choice,
   // they were using the extension before Chrome AI was added - default to OpenAI
   const provider = options?.aiProvider ?? (options?.apiKey ? "openai" : "chrome");

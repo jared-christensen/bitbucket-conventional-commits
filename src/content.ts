@@ -1,11 +1,9 @@
 import type { PlasmoCSConfig } from "plasmo";
 
-import { generateAndSetCommitMessage } from "~lib/generate-and-set-commit-message";
-import { setupValidation } from "~lib/validate-text-area-changes";
-import { createGenerateButton } from "~utils/create-generate-button";
-import { documentObserver } from "~utils/document-observer";
-import { findTextArea } from "~utils/find-text-area";
-import { setTextAreaValue } from "~utils/set-textarea-value";
+import { generateAndSetCommitMessage } from "~lib/ai/actions";
+import { validateTextAreaChanges } from "~lib/validation/ui";
+import { createErrorMessageElement, createGenerateButton, findTextArea, setTextAreaValue } from "~utils/dom";
+import { documentObserver } from "~utils/observers";
 
 import "~styles/content.css";
 
@@ -16,13 +14,14 @@ export const config: PlasmoCSConfig = {
 
 export {};
 
-documentObserver((modal: HTMLElement) => {
+documentObserver(() => {
   const textarea = findTextArea();
 
   if (textarea) {
-    textarea.placeholder = "Describe what you changed and why, then hit Generate";
-    createGenerateButton(textarea, generateAndSetCommitMessage);
-    setupValidation(textarea, modal);
+    textarea.placeholder = "Describe what you changed and why before clicking Generate for a better message.";
     setTextAreaValue("");
+    createGenerateButton(textarea, generateAndSetCommitMessage);
+    const errorElement = createErrorMessageElement(textarea);
+    validateTextAreaChanges(textarea, errorElement);
   }
 });

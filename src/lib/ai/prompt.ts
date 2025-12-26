@@ -1,3 +1,5 @@
+// Prompt builder for AI commit message generation
+
 export function buildPrompt(textareaValue: string, prTitle: string, prDescription: string): string {
   return `
 Generate a Conventional Commit message. Return ONLY the commit message, nothing else.

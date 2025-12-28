@@ -7,6 +7,7 @@
   "scripts": {
     "dev": "plasmo dev",
     "build": "plasmo build",
+    "test": "vitest run",
     "build-chrome": "plasmo build --target=chrome-mv3 --zip",
     "build-firefox": "plasmo build --target=firefox-mv2 --zip",
     "build-edge": "plasmo build --target=edge-mv3 --zip",
@@ -41,7 +42,8 @@
     "postcss": "8.4.33",
     "prettier": "3.2.4",
     "tailwindcss-animate": "^1.0.7",
-    "typescript": "5.3.3"
+    "typescript": "5.3.3",
+    "vitest": "^4.0.16"
   },
   "manifest": {
     "host_permissions": [

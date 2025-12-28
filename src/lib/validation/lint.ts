@@ -23,8 +23,8 @@ export function lintCommitMessage(message: string): {
     return { isValid: false, errors: ["Move the ticket to the end, not the start."], severity: "error" };
   }
 
-  // Check for missing colon after scope (e.g. "feat(scope) description")
-  if (/^[a-z]+\([^)]+\)\s+\w/.test(trimmed)) {
+  // Check for missing colon after scope (e.g. "feat(scope) description" or "feat(scope)! description")
+  if (/^[a-z]+\([^)]+\)!?\s+\w/.test(trimmed)) {
     return { isValid: false, errors: ["Add a colon after the scope: type(scope): description"], severity: "error" };
   }
 
@@ -33,19 +33,19 @@ export function lintCommitMessage(message: string): {
     return { isValid: false, errors: ["Remove the space before the scope: type(scope):"], severity: "error" };
   }
 
-  // Check for uppercase type (e.g. "FEAT:" or "Feat:")
-  if (/^[A-Z][a-zA-Z]*(\(|:)/.test(trimmed)) {
+  // Check for uppercase type (e.g. "FEAT:" or "Feat:" or "FEAT!:")
+  if (/^[A-Z][a-zA-Z]*(\(|!|:)/.test(trimmed)) {
     return { isValid: false, errors: ["Type should be lowercase (e.g. feat, fix, chore)."], severity: "error" };
   }
 
   // Check for scope that isn't kebab-case
-  const scopeMatch = trimmed.match(/^[a-z]+\(([^)]+)\):/);
+  const scopeMatch = trimmed.match(/^[a-z]+\(([^)]+)\)!?:/);
   if (scopeMatch && !/^[a-z0-9-]+$/.test(scopeMatch[1])) {
     return { isValid: false, errors: ["Scope should be kebab-case (e.g. user-auth)."], severity: "error" };
   }
 
-  // Regex enforces: lowercase type, optional kebab-case scope, description
-  const match = trimmed.match(/^([a-z]+)(\(([a-z0-9-]+)\))?: .+/);
+  // Regex enforces: lowercase type, optional kebab-case scope, optional ! for breaking changes, description
+  const match = trimmed.match(/^([a-z]+)(\(([a-z0-9-]+)\))?!?: .+/);
   if (!match) {
     return { isValid: false, errors: ["Try: type(scope): description or type: description"], severity: "error" };
   }
@@ -74,6 +74,15 @@ export function lintCommitMessage(message: string): {
 
   const lines = trimmed.split("\n");
   const firstLine = lines[0];
+
+  if (firstLine.length > 72) {
+    return { isValid: false, errors: ["Keep the subject line under 72 characters."], severity: "warning" };
+  }
+
+  if (firstLine.length > 50) {
+    return { isValid: false, errors: ["Subject lines under 50 characters are easier to read."], severity: "warning" };
+  }
+
   const footerLines = lines.slice(1);
 
   if (jiraId && firstLine.includes(jiraId)) {

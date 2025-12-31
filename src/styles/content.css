@@ -3,6 +3,7 @@
   align-items: center;
   gap: 12px;
   margin-top: 8px;
+  margin-bottom: 8px;
 }
 
 button.bcc-generate-commit-message {
@@ -37,9 +38,9 @@ button.bcc-generate-commit-message:focus-visible {
 }
 
 .bcc-lint-error-message.error {
-  color: #EC6340;
+  color: #ec6340;
 }
 
 .bcc-lint-error-message.warning {
-  color: #F3AF3D;
+  color: #f3af3d;
 }

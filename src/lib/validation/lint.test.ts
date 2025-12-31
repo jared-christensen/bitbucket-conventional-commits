@@ -116,6 +116,17 @@ describe("lintCommitMessage", () => {
       expect(result.errors[0]).toContain("kebab-case");
     });
 
+    it("rejects invalid scope with breaking change", () => {
+      const result = lintCommitMessage("feat(UserAuth)!: description");
+      expect(result.severity).toBe("error");
+      expect(result.errors[0]).toContain("kebab-case");
+    });
+
+    it("rejects empty scope", () => {
+      const result = lintCommitMessage("feat(): description");
+      expect(result.severity).toBe("error");
+    });
+
     it("rejects invalid format", () => {
       const result = lintCommitMessage("this is not a conventional commit");
       expect(result.severity).toBe("error");
@@ -182,6 +193,38 @@ describe("lintCommitMessage", () => {
       const result = lintCommitMessage(shortMessage);
       expect(result.isValid).toBe(true);
     });
+
+    it("does not warn on exactly 50 characters", () => {
+      // "feat: " is 6 chars, so we need 44 more to hit exactly 50
+      const message = "feat: " + "a".repeat(44);
+      expect(message.length).toBe(50);
+      const result = lintCommitMessage(message);
+      expect(result.isValid).toBe(true);
+    });
+
+    it("warns on 51 characters", () => {
+      const message = "feat: " + "a".repeat(45);
+      expect(message.length).toBe(51);
+      const result = lintCommitMessage(message);
+      expect(result.severity).toBe("warning");
+      expect(result.errors[0]).toContain("50");
+    });
+
+    it("does not warn on exactly 72 characters (beyond 50 warning)", () => {
+      const message = "feat: " + "a".repeat(66);
+      expect(message.length).toBe(72);
+      const result = lintCommitMessage(message);
+      expect(result.severity).toBe("warning");
+      expect(result.errors[0]).toContain("50"); // Gets 50 warning, not 72
+    });
+
+    it("warns on 73 characters with 72 message", () => {
+      const message = "feat: " + "a".repeat(67);
+      expect(message.length).toBe(73);
+      const result = lintCommitMessage(message);
+      expect(result.severity).toBe("warning");
+      expect(result.errors[0]).toContain("72");
+    });
   });
 
   describe("edge cases", () => {
@@ -192,6 +235,26 @@ describe("lintCommitMessage", () => {
 
     it("handles multiline messages", () => {
       const result = lintCommitMessage("feat: add feature\n\nThis is the body");
+      expect(result.isValid).toBe(true);
+    });
+
+    it("ignores punctuation in body", () => {
+      const result = lintCommitMessage("feat: add feature\n\nThis is the body.");
+      expect(result.isValid).toBe(true);
+    });
+
+    it("ignores uppercase in body", () => {
+      const result = lintCommitMessage("feat: add feature\n\nThis Starts With Uppercase.");
+      expect(result.isValid).toBe(true);
+    });
+
+    it("accepts commit with body and footer", () => {
+      const result = lintCommitMessage("feat: add feature\n\nThis is the body.\n\nECHO-1234");
+      expect(result.isValid).toBe(true);
+    });
+
+    it("accepts commit with just footer", () => {
+      const result = lintCommitMessage("feat: add feature\n\nECHO-1234");
       expect(result.isValid).toBe(true);
     });
 

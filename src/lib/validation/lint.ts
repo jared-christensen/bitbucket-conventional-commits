@@ -55,29 +55,28 @@ export function lintCommitMessage(
   }
 
   const [, type] = match;
-  const description = trimmed.split(": ").slice(1).join(": ");
+  const lines = trimmed.split("\n");
+  const firstLine = lines[0];
+  const firstLineDescription = firstLine.split(": ").slice(1).join(": ");
 
   const allowedTypes = commitlintConfig.rules["type-enum"]?.[2] || [];
   if (!allowedTypes.includes(type)) {
     return { isValid: false, errors: [`"${type}" isn't a standard type. Try feat, fix, chore, etc.`], severity: "error" };
   }
 
-  if (!description) {
+  if (!firstLineDescription) {
     return { isValid: false, errors: ["Add a description after the colon."], severity: "error" };
   }
 
   // === WARNINGS (tips only, don't block merge) ===
 
-  if (/^[A-Z]/.test(description)) {
+  if (/^[A-Z]/.test(firstLineDescription)) {
     return { isValid: false, errors: ["Lowercase descriptions are preferred."], severity: "warning" };
   }
 
-  if (/[.!?]$/.test(description)) {
+  if (/[.!?]$/.test(firstLineDescription)) {
     return { isValid: false, errors: ["Skip the ending punctuation."], severity: "warning" };
   }
-
-  const lines = trimmed.split("\n");
-  const firstLine = lines[0];
 
   if (firstLine.length > 72) {
     return { isValid: false, errors: ["Keep the subject line under 72 characters."], severity: "warning" };

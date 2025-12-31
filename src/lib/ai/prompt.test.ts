@@ -54,7 +54,10 @@ describe("buildPrompt", () => {
     const result = buildPrompt("", "Test", "");
     expect(result).toContain("imperative mood");
     expect(result).toContain("No period at the end");
-    expect(result).toContain("72 characters");
+    expect(result).toContain("50 characters");
+    expect(result).toContain("lowercase");
+    expect(result).toContain("kebab-case");
+    expect(result).toContain("Jira ID");
   });
 
   it("handles all empty inputs", () => {

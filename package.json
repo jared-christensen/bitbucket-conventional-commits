@@ -1,7 +1,7 @@
 {
   "name": "bitbucket-conventional-commits",
   "displayName": "Bitbucket Conventional Commits",
-  "version": "1.0.9",
+  "version": "1.0.10",
   "description": "Validates and generates conventional commit messages in the Bitbucket merge modal with AI-powered suggestions for consistency.",
   "author": "Jared Christensen",
   "scripts": {

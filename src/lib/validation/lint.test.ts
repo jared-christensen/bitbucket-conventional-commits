@@ -200,4 +200,38 @@ describe("lintCommitMessage", () => {
       expect(result.isValid).toBe(true);
     });
   });
+
+  describe("jira ID from PR title", () => {
+    it("warns when PR title has Jira ID but commit does not", () => {
+      const result = lintCommitMessage("feat: add feature", "ECHO-1234 Add feature");
+      expect(result.severity).toBe("warning");
+      expect(result.errors[0]).toContain("ECHO-1234");
+    });
+
+    it("passes when commit includes Jira ID from PR title", () => {
+      const result = lintCommitMessage("feat: add feature\n\nECHO-1234", "ECHO-1234 Add feature");
+      expect(result.isValid).toBe(true);
+    });
+
+    it("passes when commit includes Jira ID in subject", () => {
+      const result = lintCommitMessage("feat: add feature ECHO-1234", "ECHO-1234 Add feature");
+      // This will trigger "move to footer" warning, but not "missing Jira ID"
+      expect(result.errors[0]).not.toContain("Add the Jira ID");
+    });
+
+    it("passes when PR title has no Jira ID", () => {
+      const result = lintCommitMessage("feat: add feature", "Add feature");
+      expect(result.isValid).toBe(true);
+    });
+
+    it("passes when prTitle is undefined", () => {
+      const result = lintCommitMessage("feat: add feature");
+      expect(result.isValid).toBe(true);
+    });
+
+    it("passes when prTitle is empty", () => {
+      const result = lintCommitMessage("feat: add feature", "");
+      expect(result.isValid).toBe(true);
+    });
+  });
 });

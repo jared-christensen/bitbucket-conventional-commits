@@ -1,6 +1,7 @@
 // Validation UI: error display for commit message linting
 
 import { findTextArea } from "~utils/dom";
+import { getPrTitle } from "~utils/pr-context";
 
 import { lintCommitMessage } from "./lint";
 
@@ -29,7 +30,7 @@ function attachListeners() {
         const textarea = findTextArea();
         if (!textarea) return;
 
-        const { errors, severity } = lintCommitMessage(textarea.value);
+        const { errors, severity } = lintCommitMessage(textarea.value, getPrTitle());
 
         // Block on errors (structural issues), allow warnings (style issues) through
         if (severity === "error") {
@@ -57,7 +58,7 @@ export function setupValidation(textarea: HTMLTextAreaElement, errorElement: HTM
   textarea.addEventListener("input", () => {
     if (!validationEnabled) return;
 
-    const { isValid, errors, severity } = lintCommitMessage(textarea.value);
+    const { isValid, errors, severity } = lintCommitMessage(textarea.value, getPrTitle());
 
     textarea.style.borderColor = isValid ? "" : severity === "error" ? "#EC6340" : "#F3AF3D";
     errorElement.textContent = errors.join(" ");

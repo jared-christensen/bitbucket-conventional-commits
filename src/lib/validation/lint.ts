@@ -4,13 +4,17 @@ import commitlintConfig from "@commitlint/config-conventional";
 
 import { findJiraId } from "~utils/pr-context";
 
-export function lintCommitMessage(message: string): {
+export function lintCommitMessage(
+  message: string,
+  prTitle?: string
+): {
   isValid: boolean;
   errors: string[];
   severity: "error" | "warning" | "none";
 } {
   const trimmed = message.trim();
-  const jiraId = findJiraId(trimmed);
+  const jiraIdInMessage = findJiraId(trimmed);
+  const jiraIdInPrTitle = prTitle ? findJiraId(prTitle) : null;
 
   // === ERRORS (block merge) ===
 
@@ -85,12 +89,17 @@ export function lintCommitMessage(message: string): {
 
   const footerLines = lines.slice(1);
 
-  if (jiraId && firstLine.includes(jiraId)) {
+  if (jiraIdInMessage && firstLine.includes(jiraIdInMessage)) {
     return { isValid: false, errors: ["Consider moving the Jira ID to the footer."], severity: "warning" };
   }
 
-  if (jiraId && !footerLines.some((line) => line.includes(jiraId))) {
+  if (jiraIdInMessage && !footerLines.some((line) => line.includes(jiraIdInMessage))) {
     return { isValid: false, errors: ["The Jira ID works best in the footer."], severity: "warning" };
+  }
+
+  // Check if PR title has a Jira ID that's missing from the commit
+  if (jiraIdInPrTitle && !trimmed.includes(jiraIdInPrTitle)) {
+    return { isValid: false, errors: [`Add the Jira ID (${jiraIdInPrTitle}) to the commit.`], severity: "warning" };
   }
 
   return { isValid: true, errors: [], severity: "none" };

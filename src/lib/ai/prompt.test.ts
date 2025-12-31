@@ -8,15 +8,15 @@ describe("buildPrompt", () => {
     expect(result).toContain("PR Title: Add login feature");
   });
 
-  it("includes user notes when provided", () => {
+  it("includes user instructions when provided", () => {
     const result = buildPrompt("fixed the auth bug", "Fix auth", "");
-    expect(result).toContain("User's notes");
+    expect(result).toContain("User instructions");
     expect(result).toContain("fixed the auth bug");
   });
 
-  it("excludes user notes section when empty", () => {
+  it("excludes user instructions section when empty", () => {
     const result = buildPrompt("", "Fix auth", "");
-    expect(result).not.toContain("User's notes");
+    expect(result).not.toContain("User instructions");
   });
 
   it("includes PR description when provided", () => {
@@ -52,12 +52,12 @@ describe("buildPrompt", () => {
 
   it("includes key rules", () => {
     const result = buildPrompt("", "Test", "");
-    expect(result).toContain("imperative mood");
+    expect(result).toContain("imperative verb");
     expect(result).toContain("No period at the end");
     expect(result).toContain("50 characters");
     expect(result).toContain("lowercase");
     expect(result).toContain("kebab-case");
-    expect(result).toContain("Jira ID");
+    expect(result).toContain("Jira/ticket ID");
   });
 
   it("handles all empty inputs", () => {

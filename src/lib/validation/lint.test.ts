@@ -297,4 +297,40 @@ describe("lintCommitMessage", () => {
       expect(result.isValid).toBe(true);
     });
   });
+
+  describe("jira ID from branch name", () => {
+    it("warns when branch name has Jira ID but commit does not", () => {
+      const result = lintCommitMessage("feat: add feature", "", "feature/ECHO-1234-add-feature");
+      expect(result.severity).toBe("warning");
+      expect(result.errors[0]).toContain("ECHO-1234");
+    });
+
+    it("passes when commit includes Jira ID from branch name", () => {
+      const result = lintCommitMessage("feat: add feature\n\nECHO-1234", "", "feature/ECHO-1234-add-feature");
+      expect(result.isValid).toBe(true);
+    });
+
+    it("prefers PR title Jira ID over branch name", () => {
+      const result = lintCommitMessage("feat: add feature", "PROJ-999 Title", "feature/ECHO-1234-branch");
+      expect(result.severity).toBe("warning");
+      expect(result.errors[0]).toContain("PROJ-999");
+      expect(result.errors[0]).not.toContain("ECHO-1234");
+    });
+
+    it("falls back to branch name when PR title has no Jira ID", () => {
+      const result = lintCommitMessage("feat: add feature", "Add feature", "feature/ECHO-1234-add-feature");
+      expect(result.severity).toBe("warning");
+      expect(result.errors[0]).toContain("ECHO-1234");
+    });
+
+    it("passes when neither title nor branch has Jira ID", () => {
+      const result = lintCommitMessage("feat: add feature", "Add feature", "feature/add-feature");
+      expect(result.isValid).toBe(true);
+    });
+
+    it("passes when branchName is empty", () => {
+      const result = lintCommitMessage("feat: add feature", "", "");
+      expect(result.isValid).toBe(true);
+    });
+  });
 });

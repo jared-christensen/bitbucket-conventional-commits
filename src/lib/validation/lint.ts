@@ -6,7 +6,8 @@ import { findJiraId } from "~utils/pr-context";
 
 export function lintCommitMessage(
   message: string,
-  prTitle?: string
+  prTitle?: string,
+  branchName?: string
 ): {
   isValid: boolean;
   errors: string[];
@@ -14,7 +15,8 @@ export function lintCommitMessage(
 } {
   const trimmed = message.trim();
   const jiraIdInMessage = findJiraId(trimmed);
-  const jiraIdInPrTitle = prTitle ? findJiraId(prTitle) : null;
+  // Check PR title first, then branch name for Jira ID
+  const jiraIdFromContext = (prTitle ? findJiraId(prTitle) : null) || (branchName ? findJiraId(branchName) : null);
 
   // === ERRORS (block merge) ===
 
@@ -71,34 +73,34 @@ export function lintCommitMessage(
   // === WARNINGS (tips only, don't block merge) ===
 
   if (/^[A-Z]/.test(firstLineDescription)) {
-    return { isValid: false, errors: ["Lowercase descriptions are preferred."], severity: "warning" };
+    return { isValid: false, errors: ["Tip: Lowercase descriptions are preferred."], severity: "warning" };
   }
 
   if (/[.!?]$/.test(firstLineDescription)) {
-    return { isValid: false, errors: ["Skip the ending punctuation."], severity: "warning" };
+    return { isValid: false, errors: ["Tip: Skip the ending punctuation."], severity: "warning" };
   }
 
   if (firstLine.length > 72) {
-    return { isValid: false, errors: ["Keep the subject line under 72 characters."], severity: "warning" };
+    return { isValid: false, errors: ["Tip: Keep the subject line under 72 characters."], severity: "warning" };
   }
 
   if (firstLine.length > 50) {
-    return { isValid: false, errors: ["Subject lines under 50 characters are easier to read."], severity: "warning" };
+    return { isValid: false, errors: ["Tip: Subject lines under 50 characters are easier to read."], severity: "warning" };
   }
 
   const footerLines = lines.slice(1);
 
   if (jiraIdInMessage && firstLine.includes(jiraIdInMessage)) {
-    return { isValid: false, errors: ["Consider moving the Jira ID to the footer."], severity: "warning" };
+    return { isValid: false, errors: ["Tip: Move the Jira ID to a new line at the end."], severity: "warning" };
   }
 
   if (jiraIdInMessage && !footerLines.some((line) => line.includes(jiraIdInMessage))) {
-    return { isValid: false, errors: ["The Jira ID works best in the footer."], severity: "warning" };
+    return { isValid: false, errors: ["Tip: Put the Jira ID on a new line at the end."], severity: "warning" };
   }
 
-  // Check if PR title has a Jira ID that's missing from the commit
-  if (jiraIdInPrTitle && !trimmed.includes(jiraIdInPrTitle)) {
-    return { isValid: false, errors: [`Add the Jira ID (${jiraIdInPrTitle}) to the commit.`], severity: "warning" };
+  // Check if PR title or branch has a Jira ID that's missing from the commit
+  if (jiraIdFromContext && !trimmed.includes(jiraIdFromContext)) {
+    return { isValid: false, errors: [`Tip: Add the Jira ID (${jiraIdFromContext}) to the commit.`], severity: "warning" };
   }
 
   return { isValid: true, errors: [], severity: "none" };

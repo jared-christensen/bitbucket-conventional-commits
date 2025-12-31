@@ -1,6 +1,14 @@
 // Prompt builder for AI commit message generation
 
-export function buildPrompt(textareaValue: string, prTitle: string, prDescription: string): string {
+export function buildPrompt(textareaValue: string, prTitle: string, prDescription: string, jiraTitle?: string): string {
+  const context = [
+    `PR Title: ${prTitle.trim()}`,
+    jiraTitle?.trim() ? `Jira Issue: ${jiraTitle.trim()}` : "",
+    prDescription.trim() ? `PR Description: ${prDescription.trim()}` : "",
+  ]
+    .filter(Boolean)
+    .join("\n");
+
   return `
 Generate a Conventional Commit message. Return ONLY the commit message, nothing else.
 
@@ -22,23 +30,21 @@ Types:
 Rules:
 - Type must be lowercase (feat, not Feat or FEAT)
 - Description must start lowercase (add feature, not Add feature)
-- Start description with a verb: add, fix, update, remove, refactor, implement, improve, handle, prevent, support, enable, disable, replace, simplify, extract, rename, move, validate, ensure, allow
-- Use imperative mood ("add feature" not "added feature" or "adds feature")
+- Start description with an imperative verb (add, fix, update, remove, etc.)
 - No period at the end
 - Scope is optional; use kebab-case with no space before it: type(scope): not type (scope):
-- Keep under 50 characters (max 72)
+- Aim for 50 characters, never exceed 72
 - Be specific, not vague ("add password validation" not "update auth")
-- Never start with a ticket/Jira ID (e.g. don't start with ECHO-1234)
+- Do not include any Jira/ticket ID (it will be added automatically)
 
 Examples:
 - feat(auth): add OAuth2 login support
 - fix(cart): prevent duplicate items when clicking rapidly
 - refactor(api): extract validation logic into middleware
+- feat(api)!: remove deprecated endpoints
 - docs: update installation instructions
 - chore: upgrade webpack to v5
 
-${textareaValue.trim() ? `User's notes (prioritize this):\n${textareaValue.trim()}\n` : ""}
-PR Title: ${prTitle.trim()}
-${prDescription.trim() ? `\nPR Description:\n${prDescription.trim()}` : ""}
+${textareaValue.trim() ? `User instructions (follow these exactly — include any Jira IDs, scope, or details they mention):\n${textareaValue.trim()}\n\n` : ""}${context}
 `.trim();
 }

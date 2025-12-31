@@ -1,7 +1,7 @@
 // High-level action for generating and setting commit message
 
 import { findTextArea, setTextAreaValue } from "~utils/dom";
-import { findJiraId, getPrDescription, getPrTitle } from "~utils/pr-context";
+import { findJiraId, getBranchName, getJiraFromSidebar, getPrDescription, getPrTitle } from "~utils/pr-context";
 
 import { generateCommitMessage } from "./generate";
 
@@ -18,14 +18,30 @@ export async function generateAndSetCommitMessage() {
   button.disabled = true;
 
   const prTitle = getPrTitle();
-  const jiraId = findJiraId(prTitle);
+  const branchName = getBranchName();
   const prDescription = getPrDescription();
+
+  // Get Jira info: prefer sidebar (cached), fall back to branch name
+  const sidebarJira = getJiraFromSidebar();
+  const jiraId = sidebarJira?.id || findJiraId(branchName);
+  const jiraTitle = sidebarJira?.title || "";
+
+  console.log("[BCC] Generate context:", {
+    prTitle: prTitle || "(not found)",
+    branchName: branchName || "(not found)",
+    jiraId: jiraId || "(not found)",
+    jiraTitle: jiraTitle || "(not found)",
+    jiraSource: sidebarJira ? "sidebar (cached)" : jiraId ? "branch" : "none",
+    prDescription: prDescription ? prDescription.slice(0, 100) + (prDescription.length > 100 ? "..." : "") : "(not found)",
+    userInput: textarea.value || "(empty)",
+  });
 
   try {
     const newMessage = await generateCommitMessage({
       textareaValue: textarea.value,
       prTitle,
       jiraId,
+      jiraTitle,
       prDescription,
     });
     if (newMessage) {

@@ -34,7 +34,7 @@ export function lintCommitMessage(
 
   // Check for space before scope (e.g. "feat (scope):")
   if (/^[a-z]+\s+\(/.test(trimmed)) {
-    return { isValid: false, errors: ["Remove the space before the scope: type(scope):"], severity: "error" };
+    return { isValid: false, errors: ["Remove the space before the parentheses."], severity: "error" };
   }
 
   // Check for uppercase type (e.g. "FEAT:" or "Feat:" or "FEAT!:")
@@ -51,7 +51,7 @@ export function lintCommitMessage(
   // Regex enforces: lowercase type, optional kebab-case scope, optional ! for breaking changes, description
   const match = trimmed.match(/^([a-z]+)(\(([a-z0-9-]+)\))?!?: .+/);
   if (!match) {
-    return { isValid: false, errors: ["Try: type(scope): description or type: description"], severity: "error" };
+    return { isValid: false, errors: ["Use the format: type(scope): description"], severity: "error" };
   }
 
   const [, type] = match;

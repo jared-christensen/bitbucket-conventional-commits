@@ -38,7 +38,7 @@ function attachListeners() {
           e.preventDefault();
 
           // Show validation UI
-          textarea.style.borderColor = "#EC6340";
+          textarea.style.borderColor = "#e2483d";
           const errorElement = textarea.nextElementSibling?.querySelector(".bcc-lint-error-message");
           if (errorElement instanceof HTMLElement) {
             errorElement.textContent = errors.join(" ");
@@ -60,9 +60,9 @@ export function setupValidation(textarea: HTMLTextAreaElement, errorElement: HTM
 
     const { isValid, errors, severity } = lintCommitMessage(textarea.value, getPrTitle());
 
-    textarea.style.borderColor = isValid ? "" : severity === "error" ? "#EC6340" : "#F3AF3D";
+    textarea.style.borderColor = isValid ? "" : severity === "error" ? "#e2483d" : "#F3AF3D";
     errorElement.textContent = errors.join(" ");
     errorElement.className = `bcc-lint-error-message ${severity}`;
-    errorElement.style.display = isValid ? "none" : "block";
+    errorElement.style.display = isValid ? "none" : "flex";
   });
 }

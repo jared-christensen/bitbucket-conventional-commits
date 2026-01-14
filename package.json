@@ -11,7 +11,8 @@
     "build-chrome": "plasmo build --target=chrome-mv3 --zip",
     "build-firefox": "plasmo build --target=firefox-mv2 --zip",
     "build-edge": "plasmo build --target=edge-mv3 --zip",
-    "build-all": "npm run build-chrome && npm run build-firefox && npm run build-edge",
+    "build-safari": "plasmo build --target=safari-mv3",
+    "build-all": "npm run build-chrome && npm run build-firefox && npm run build-edge && npm run build-safari",
     "package": "plasmo package"
   },
   "dependencies": {

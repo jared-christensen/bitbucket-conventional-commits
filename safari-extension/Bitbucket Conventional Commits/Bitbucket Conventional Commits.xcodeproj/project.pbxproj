@@ -1,0 +1,645 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 77;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		DBFD21782F1756CA00CD3AF7 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBFD21772F1756CA00CD3AF7 /* AppDelegate.swift */; };
+		DBFD217C2F1756CA00CD3AF7 /* Main.html in Resources */ = {isa = PBXBuildFile; fileRef = DBFD217A2F1756CA00CD3AF7 /* Main.html */; };
+		DBFD217E2F1756CA00CD3AF7 /* Icon.png in Resources */ = {isa = PBXBuildFile; fileRef = DBFD217D2F1756CA00CD3AF7 /* Icon.png */; };
+		DBFD21802F1756CA00CD3AF7 /* Style.css in Resources */ = {isa = PBXBuildFile; fileRef = DBFD217F2F1756CA00CD3AF7 /* Style.css */; };
+		DBFD21822F1756CA00CD3AF7 /* Script.js in Resources */ = {isa = PBXBuildFile; fileRef = DBFD21812F1756CA00CD3AF7 /* Script.js */; };
+		DBFD21842F1756CA00CD3AF7 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBFD21832F1756CA00CD3AF7 /* ViewController.swift */; };
+		DBFD21872F1756CA00CD3AF7 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = DBFD21852F1756CA00CD3AF7 /* Main.storyboard */; };
+		DBFD21892F1756CB00CD3AF7 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = DBFD21882F1756CB00CD3AF7 /* Assets.xcassets */; };
+		DBFD21902F1756CB00CD3AF7 /* Bitbucket Conventional Commits Extension.appex in Embed Foundation Extensions */ = {isa = PBXBuildFile; fileRef = DBFD218F2F1756CB00CD3AF7 /* Bitbucket Conventional Commits Extension.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
+		DBFD21952F1756CB00CD3AF7 /* SafariWebExtensionHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBFD21942F1756CB00CD3AF7 /* SafariWebExtensionHandler.swift */; };
+		DBFD21AE2F1756CB00CD3AF7 /* icon16.plasmo.3f939841.png in Resources */ = {isa = PBXBuildFile; fileRef = DBFD21A12F1756CB00CD3AF7 /* icon16.plasmo.3f939841.png */; };
+		DBFD21AF2F1756CB00CD3AF7 /* icon32.plasmo.b3e782d4.png in Resources */ = {isa = PBXBuildFile; fileRef = DBFD21A22F1756CB00CD3AF7 /* icon32.plasmo.b3e782d4.png */; };
+		DBFD21B02F1756CB00CD3AF7 /* popup.html in Resources */ = {isa = PBXBuildFile; fileRef = DBFD21A32F1756CB00CD3AF7 /* popup.html */; };
+		DBFD21B12F1756CB00CD3AF7 /* icon128.plasmo.75675c84.png in Resources */ = {isa = PBXBuildFile; fileRef = DBFD21A42F1756CB00CD3AF7 /* icon128.plasmo.75675c84.png */; };
+		DBFD21B22F1756CB00CD3AF7 /* popup.38efe8d6.css in Resources */ = {isa = PBXBuildFile; fileRef = DBFD21A52F1756CB00CD3AF7 /* popup.38efe8d6.css */; };
+		DBFD21B32F1756CB00CD3AF7 /* popup.c5bdfb9c.js in Resources */ = {isa = PBXBuildFile; fileRef = DBFD21A62F1756CB00CD3AF7 /* popup.c5bdfb9c.js */; };
+		DBFD21B42F1756CB00CD3AF7 /* content.cd347efd.js in Resources */ = {isa = PBXBuildFile; fileRef = DBFD21A72F1756CB00CD3AF7 /* content.cd347efd.js */; };
+		DBFD21B52F1756CB00CD3AF7 /* icon64.plasmo.2d281304.png in Resources */ = {isa = PBXBuildFile; fileRef = DBFD21A82F1756CB00CD3AF7 /* icon64.plasmo.2d281304.png */; };
+		DBFD21B62F1756CB00CD3AF7 /* manifest.json in Resources */ = {isa = PBXBuildFile; fileRef = DBFD21A92F1756CB00CD3AF7 /* manifest.json */; };
+		DBFD21B72F1756CB00CD3AF7 /* icon48.plasmo.3cd5ceed.png in Resources */ = {isa = PBXBuildFile; fileRef = DBFD21AA2F1756CB00CD3AF7 /* icon48.plasmo.3cd5ceed.png */; };
+		DBFD21B82F1756CB00CD3AF7 /* options.html in Resources */ = {isa = PBXBuildFile; fileRef = DBFD21AB2F1756CB00CD3AF7 /* options.html */; };
+		DBFD21B92F1756CB00CD3AF7 /* options.032735ed.js in Resources */ = {isa = PBXBuildFile; fileRef = DBFD21AC2F1756CB00CD3AF7 /* options.032735ed.js */; };
+		DBFD21BA2F1756CB00CD3AF7 /* content.5fed11f5.css in Resources */ = {isa = PBXBuildFile; fileRef = DBFD21AD2F1756CB00CD3AF7 /* content.5fed11f5.css */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXContainerItemProxy section */
+		DBFD21912F1756CB00CD3AF7 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = DBFD216C2F1756CA00CD3AF7 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = DBFD218E2F1756CB00CD3AF7;
+			remoteInfo = "Bitbucket Conventional Commits Extension";
+		};
+/* End PBXContainerItemProxy section */
+
+/* Begin PBXCopyFilesBuildPhase section */
+		DBFD219C2F1756CB00CD3AF7 /* Embed Foundation Extensions */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 13;
+			files = (
+				DBFD21902F1756CB00CD3AF7 /* Bitbucket Conventional Commits Extension.appex in Embed Foundation Extensions */,
+			);
+			name = "Embed Foundation Extensions";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXCopyFilesBuildPhase section */
+
+/* Begin PBXFileReference section */
+		DBFD21742F1756CA00CD3AF7 /* Bitbucket Conventional Commits.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Bitbucket Conventional Commits.app"; sourceTree = BUILT_PRODUCTS_DIR; };
+		DBFD21772F1756CA00CD3AF7 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
+		DBFD217B2F1756CA00CD3AF7 /* Base */ = {isa = PBXFileReference; lastKnownFileType = text.html; name = Base; path = Base.lproj/Main.html; sourceTree = "<group>"; };
+		DBFD217D2F1756CA00CD3AF7 /* Icon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Icon.png; sourceTree = "<group>"; };
+		DBFD217F2F1756CA00CD3AF7 /* Style.css */ = {isa = PBXFileReference; lastKnownFileType = text.css; path = Style.css; sourceTree = "<group>"; };
+		DBFD21812F1756CA00CD3AF7 /* Script.js */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.javascript; path = Script.js; sourceTree = "<group>"; };
+		DBFD21832F1756CA00CD3AF7 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
+		DBFD21862F1756CA00CD3AF7 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
+		DBFD21882F1756CB00CD3AF7 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		DBFD218A2F1756CB00CD3AF7 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		DBFD218F2F1756CB00CD3AF7 /* Bitbucket Conventional Commits Extension.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.app-extension"; includeInIndex = 0; path = "Bitbucket Conventional Commits Extension.appex"; sourceTree = BUILT_PRODUCTS_DIR; };
+		DBFD21942F1756CB00CD3AF7 /* SafariWebExtensionHandler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SafariWebExtensionHandler.swift; sourceTree = "<group>"; };
+		DBFD21962F1756CB00CD3AF7 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		DBFD21A12F1756CB00CD3AF7 /* icon16.plasmo.3f939841.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = icon16.plasmo.3f939841.png; path = "../../../build/safari-mv3-prod/icon16.plasmo.3f939841.png"; sourceTree = "<group>"; };
+		DBFD21A22F1756CB00CD3AF7 /* icon32.plasmo.b3e782d4.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = icon32.plasmo.b3e782d4.png; path = "../../../build/safari-mv3-prod/icon32.plasmo.b3e782d4.png"; sourceTree = "<group>"; };
+		DBFD21A32F1756CB00CD3AF7 /* popup.html */ = {isa = PBXFileReference; lastKnownFileType = text.html; name = popup.html; path = "../../../build/safari-mv3-prod/popup.html"; sourceTree = "<group>"; };
+		DBFD21A42F1756CB00CD3AF7 /* icon128.plasmo.75675c84.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = icon128.plasmo.75675c84.png; path = "../../../build/safari-mv3-prod/icon128.plasmo.75675c84.png"; sourceTree = "<group>"; };
+		DBFD21A52F1756CB00CD3AF7 /* popup.38efe8d6.css */ = {isa = PBXFileReference; lastKnownFileType = text.css; name = popup.38efe8d6.css; path = "../../../build/safari-mv3-prod/popup.38efe8d6.css"; sourceTree = "<group>"; };
+		DBFD21A62F1756CB00CD3AF7 /* popup.c5bdfb9c.js */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.javascript; name = popup.c5bdfb9c.js; path = "../../../build/safari-mv3-prod/popup.c5bdfb9c.js"; sourceTree = "<group>"; };
+		DBFD21A72F1756CB00CD3AF7 /* content.cd347efd.js */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.javascript; name = content.cd347efd.js; path = "../../../build/safari-mv3-prod/content.cd347efd.js"; sourceTree = "<group>"; };
+		DBFD21A82F1756CB00CD3AF7 /* icon64.plasmo.2d281304.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = icon64.plasmo.2d281304.png; path = "../../../build/safari-mv3-prod/icon64.plasmo.2d281304.png"; sourceTree = "<group>"; };
+		DBFD21A92F1756CB00CD3AF7 /* manifest.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; name = manifest.json; path = "../../../build/safari-mv3-prod/manifest.json"; sourceTree = "<group>"; };
+		DBFD21AA2F1756CB00CD3AF7 /* icon48.plasmo.3cd5ceed.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = icon48.plasmo.3cd5ceed.png; path = "../../../build/safari-mv3-prod/icon48.plasmo.3cd5ceed.png"; sourceTree = "<group>"; };
+		DBFD21AB2F1756CB00CD3AF7 /* options.html */ = {isa = PBXFileReference; lastKnownFileType = text.html; name = options.html; path = "../../../build/safari-mv3-prod/options.html"; sourceTree = "<group>"; };
+		DBFD21AC2F1756CB00CD3AF7 /* options.032735ed.js */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.javascript; name = options.032735ed.js; path = "../../../build/safari-mv3-prod/options.032735ed.js"; sourceTree = "<group>"; };
+		DBFD21AD2F1756CB00CD3AF7 /* content.5fed11f5.css */ = {isa = PBXFileReference; lastKnownFileType = text.css; name = content.5fed11f5.css; path = "../../../build/safari-mv3-prod/content.5fed11f5.css"; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		DBFD21712F1756CA00CD3AF7 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		DBFD218C2F1756CB00CD3AF7 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		DBFD216B2F1756CA00CD3AF7 = {
+			isa = PBXGroup;
+			children = (
+				DBFD21762F1756CA00CD3AF7 /* Bitbucket Conventional Commits */,
+				DBFD21932F1756CB00CD3AF7 /* Bitbucket Conventional Commits Extension */,
+				DBFD21752F1756CA00CD3AF7 /* Products */,
+			);
+			sourceTree = "<group>";
+		};
+		DBFD21752F1756CA00CD3AF7 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				DBFD21742F1756CA00CD3AF7 /* Bitbucket Conventional Commits.app */,
+				DBFD218F2F1756CB00CD3AF7 /* Bitbucket Conventional Commits Extension.appex */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		DBFD21762F1756CA00CD3AF7 /* Bitbucket Conventional Commits */ = {
+			isa = PBXGroup;
+			children = (
+				DBFD21772F1756CA00CD3AF7 /* AppDelegate.swift */,
+				DBFD21832F1756CA00CD3AF7 /* ViewController.swift */,
+				DBFD21852F1756CA00CD3AF7 /* Main.storyboard */,
+				DBFD21882F1756CB00CD3AF7 /* Assets.xcassets */,
+				DBFD218A2F1756CB00CD3AF7 /* Info.plist */,
+				DBFD21792F1756CA00CD3AF7 /* Resources */,
+			);
+			path = "Bitbucket Conventional Commits";
+			sourceTree = "<group>";
+		};
+		DBFD21792F1756CA00CD3AF7 /* Resources */ = {
+			isa = PBXGroup;
+			children = (
+				DBFD217A2F1756CA00CD3AF7 /* Main.html */,
+				DBFD217D2F1756CA00CD3AF7 /* Icon.png */,
+				DBFD217F2F1756CA00CD3AF7 /* Style.css */,
+				DBFD21812F1756CA00CD3AF7 /* Script.js */,
+			);
+			path = Resources;
+			sourceTree = "<group>";
+		};
+		DBFD21932F1756CB00CD3AF7 /* Bitbucket Conventional Commits Extension */ = {
+			isa = PBXGroup;
+			children = (
+				DBFD21A02F1756CB00CD3AF7 /* Resources */,
+				DBFD21942F1756CB00CD3AF7 /* SafariWebExtensionHandler.swift */,
+				DBFD21962F1756CB00CD3AF7 /* Info.plist */,
+			);
+			path = "Bitbucket Conventional Commits Extension";
+			sourceTree = "<group>";
+		};
+		DBFD21A02F1756CB00CD3AF7 /* Resources */ = {
+			isa = PBXGroup;
+			children = (
+				DBFD21A12F1756CB00CD3AF7 /* icon16.plasmo.3f939841.png */,
+				DBFD21A22F1756CB00CD3AF7 /* icon32.plasmo.b3e782d4.png */,
+				DBFD21A32F1756CB00CD3AF7 /* popup.html */,
+				DBFD21A42F1756CB00CD3AF7 /* icon128.plasmo.75675c84.png */,
+				DBFD21A52F1756CB00CD3AF7 /* popup.38efe8d6.css */,
+				DBFD21A62F1756CB00CD3AF7 /* popup.c5bdfb9c.js */,
+				DBFD21A72F1756CB00CD3AF7 /* content.cd347efd.js */,
+				DBFD21A82F1756CB00CD3AF7 /* icon64.plasmo.2d281304.png */,
+				DBFD21A92F1756CB00CD3AF7 /* manifest.json */,
+				DBFD21AA2F1756CB00CD3AF7 /* icon48.plasmo.3cd5ceed.png */,
+				DBFD21AB2F1756CB00CD3AF7 /* options.html */,
+				DBFD21AC2F1756CB00CD3AF7 /* options.032735ed.js */,
+				DBFD21AD2F1756CB00CD3AF7 /* content.5fed11f5.css */,
+			);
+			name = Resources;
+			path = "Bitbucket Conventional Commits Extension";
+			sourceTree = SOURCE_ROOT;
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		DBFD21732F1756CA00CD3AF7 /* Bitbucket Conventional Commits */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = DBFD219D2F1756CB00CD3AF7 /* Build configuration list for PBXNativeTarget "Bitbucket Conventional Commits" */;
+			buildPhases = (
+				DBFD21702F1756CA00CD3AF7 /* Sources */,
+				DBFD21712F1756CA00CD3AF7 /* Frameworks */,
+				DBFD21722F1756CA00CD3AF7 /* Resources */,
+				DBFD219C2F1756CB00CD3AF7 /* Embed Foundation Extensions */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				DBFD21922F1756CB00CD3AF7 /* PBXTargetDependency */,
+			);
+			name = "Bitbucket Conventional Commits";
+			packageProductDependencies = (
+			);
+			productName = "Bitbucket Conventional Commits";
+			productReference = DBFD21742F1756CA00CD3AF7 /* Bitbucket Conventional Commits.app */;
+			productType = "com.apple.product-type.application";
+		};
+		DBFD218E2F1756CB00CD3AF7 /* Bitbucket Conventional Commits Extension */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = DBFD21992F1756CB00CD3AF7 /* Build configuration list for PBXNativeTarget "Bitbucket Conventional Commits Extension" */;
+			buildPhases = (
+				DBFD218B2F1756CB00CD3AF7 /* Sources */,
+				DBFD218C2F1756CB00CD3AF7 /* Frameworks */,
+				DBFD218D2F1756CB00CD3AF7 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = "Bitbucket Conventional Commits Extension";
+			packageProductDependencies = (
+			);
+			productName = "Bitbucket Conventional Commits Extension";
+			productReference = DBFD218F2F1756CB00CD3AF7 /* Bitbucket Conventional Commits Extension.appex */;
+			productType = "com.apple.product-type.app-extension";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		DBFD216C2F1756CA00CD3AF7 /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				BuildIndependentTargetsInParallel = 1;
+				LastSwiftUpdateCheck = 2620;
+				LastUpgradeCheck = 2620;
+				TargetAttributes = {
+					DBFD21732F1756CA00CD3AF7 = {
+						CreatedOnToolsVersion = 26.2;
+					};
+					DBFD218E2F1756CB00CD3AF7 = {
+						CreatedOnToolsVersion = 26.2;
+					};
+				};
+			};
+			buildConfigurationList = DBFD216F2F1756CA00CD3AF7 /* Build configuration list for PBXProject "Bitbucket Conventional Commits" */;
+			developmentRegion = en;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+				Base,
+			);
+			mainGroup = DBFD216B2F1756CA00CD3AF7;
+			minimizedProjectReferenceProxies = 1;
+			preferredProjectObjectVersion = 77;
+			productRefGroup = DBFD21752F1756CA00CD3AF7 /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				DBFD21732F1756CA00CD3AF7 /* Bitbucket Conventional Commits */,
+				DBFD218E2F1756CB00CD3AF7 /* Bitbucket Conventional Commits Extension */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		DBFD21722F1756CA00CD3AF7 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				DBFD217E2F1756CA00CD3AF7 /* Icon.png in Resources */,
+				DBFD21872F1756CA00CD3AF7 /* Main.storyboard in Resources */,
+				DBFD21822F1756CA00CD3AF7 /* Script.js in Resources */,
+				DBFD217C2F1756CA00CD3AF7 /* Main.html in Resources */,
+				DBFD21892F1756CB00CD3AF7 /* Assets.xcassets in Resources */,
+				DBFD21802F1756CA00CD3AF7 /* Style.css in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		DBFD218D2F1756CB00CD3AF7 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				DBFD21B52F1756CB00CD3AF7 /* icon64.plasmo.2d281304.png in Resources */,
+				DBFD21B32F1756CB00CD3AF7 /* popup.c5bdfb9c.js in Resources */,
+				DBFD21AF2F1756CB00CD3AF7 /* icon32.plasmo.b3e782d4.png in Resources */,
+				DBFD21B02F1756CB00CD3AF7 /* popup.html in Resources */,
+				DBFD21B82F1756CB00CD3AF7 /* options.html in Resources */,
+				DBFD21B62F1756CB00CD3AF7 /* manifest.json in Resources */,
+				DBFD21AE2F1756CB00CD3AF7 /* icon16.plasmo.3f939841.png in Resources */,
+				DBFD21B22F1756CB00CD3AF7 /* popup.38efe8d6.css in Resources */,
+				DBFD21B42F1756CB00CD3AF7 /* content.cd347efd.js in Resources */,
+				DBFD21BA2F1756CB00CD3AF7 /* content.5fed11f5.css in Resources */,
+				DBFD21B92F1756CB00CD3AF7 /* options.032735ed.js in Resources */,
+				DBFD21B72F1756CB00CD3AF7 /* icon48.plasmo.3cd5ceed.png in Resources */,
+				DBFD21B12F1756CB00CD3AF7 /* icon128.plasmo.75675c84.png in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		DBFD21702F1756CA00CD3AF7 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				DBFD21842F1756CA00CD3AF7 /* ViewController.swift in Sources */,
+				DBFD21782F1756CA00CD3AF7 /* AppDelegate.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		DBFD218B2F1756CB00CD3AF7 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				DBFD21952F1756CB00CD3AF7 /* SafariWebExtensionHandler.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		DBFD21922F1756CB00CD3AF7 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = DBFD218E2F1756CB00CD3AF7 /* Bitbucket Conventional Commits Extension */;
+			targetProxy = DBFD21912F1756CB00CD3AF7 /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
+
+/* Begin PBXVariantGroup section */
+		DBFD217A2F1756CA00CD3AF7 /* Main.html */ = {
+			isa = PBXVariantGroup;
+			children = (
+				DBFD217B2F1756CA00CD3AF7 /* Base */,
+			);
+			name = Main.html;
+			sourceTree = "<group>";
+		};
+		DBFD21852F1756CA00CD3AF7 /* Main.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				DBFD21862F1756CA00CD3AF7 /* Base */,
+			);
+			name = Main.storyboard;
+			sourceTree = "<group>";
+		};
+/* End PBXVariantGroup section */
+
+/* Begin XCBuildConfiguration section */
+		DBFD21972F1756CB00CD3AF7 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				ASSETCATALOG_COMPILER_GENERATE_SWIFT_ASSET_SYMBOL_EXTENSIONS = YES;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++20";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_TESTABILITY = YES;
+				ENABLE_USER_SCRIPT_SANDBOXING = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu17;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				LOCALIZATION_PREFERS_STRING_CATALOGS = YES;
+				MACOSX_DEPLOYMENT_TARGET = 26.2;
+				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
+				MTL_FAST_MATH = YES;
+				ONLY_ACTIVE_ARCH = YES;
+				SDKROOT = macosx;
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = "DEBUG $(inherited)";
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+			};
+			name = Debug;
+		};
+		DBFD21982F1756CB00CD3AF7 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				ASSETCATALOG_COMPILER_GENERATE_SWIFT_ASSET_SYMBOL_EXTENSIONS = YES;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++20";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_USER_SCRIPT_SANDBOXING = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu17;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				LOCALIZATION_PREFERS_STRING_CATALOGS = YES;
+				MACOSX_DEPLOYMENT_TARGET = 26.2;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				MTL_FAST_MATH = YES;
+				SDKROOT = macosx;
+				SWIFT_COMPILATION_MODE = wholemodule;
+			};
+			name = Release;
+		};
+		DBFD219A2F1756CB00CD3AF7 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				ENABLE_APP_SANDBOX = YES;
+				ENABLE_HARDENED_RUNTIME = YES;
+				ENABLE_USER_SELECTED_FILES = readonly;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = "Bitbucket Conventional Commits Extension/Info.plist";
+				INFOPLIST_KEY_CFBundleDisplayName = "Bitbucket Conventional Commits Extension";
+				INFOPLIST_KEY_NSHumanReadableCopyright = "";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/../Frameworks",
+					"@executable_path/../../../../Frameworks",
+				);
+				MACOSX_DEPLOYMENT_TARGET = 10.14;
+				MARKETING_VERSION = 1.0;
+				OTHER_LDFLAGS = (
+					"-framework",
+					SafariServices,
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = "com.jaredchristensen.bitbucket-conventional-commits.Extension";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SKIP_INSTALL = YES;
+				STRING_CATALOG_GENERATE_SYMBOLS = YES;
+				SWIFT_APPROACHABLE_CONCURRENCY = YES;
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_UPCOMING_FEATURE_MEMBER_IMPORT_VISIBILITY = YES;
+				SWIFT_VERSION = 5.0;
+			};
+			name = Debug;
+		};
+		DBFD219B2F1756CB00CD3AF7 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				ENABLE_APP_SANDBOX = YES;
+				ENABLE_HARDENED_RUNTIME = YES;
+				ENABLE_USER_SELECTED_FILES = readonly;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = "Bitbucket Conventional Commits Extension/Info.plist";
+				INFOPLIST_KEY_CFBundleDisplayName = "Bitbucket Conventional Commits Extension";
+				INFOPLIST_KEY_NSHumanReadableCopyright = "";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/../Frameworks",
+					"@executable_path/../../../../Frameworks",
+				);
+				MACOSX_DEPLOYMENT_TARGET = 10.14;
+				MARKETING_VERSION = 1.0;
+				OTHER_LDFLAGS = (
+					"-framework",
+					SafariServices,
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = "com.jaredchristensen.bitbucket-conventional-commits.Extension";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SKIP_INSTALL = YES;
+				STRING_CATALOG_GENERATE_SYMBOLS = YES;
+				SWIFT_APPROACHABLE_CONCURRENCY = YES;
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_UPCOMING_FEATURE_MEMBER_IMPORT_VISIBILITY = YES;
+				SWIFT_VERSION = 5.0;
+			};
+			name = Release;
+		};
+		DBFD219E2F1756CB00CD3AF7 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_STYLE = Automatic;
+				COMBINE_HIDPI_IMAGES = YES;
+				CURRENT_PROJECT_VERSION = 1;
+				ENABLE_APP_SANDBOX = YES;
+				ENABLE_HARDENED_RUNTIME = YES;
+				ENABLE_OUTGOING_NETWORK_CONNECTIONS = YES;
+				ENABLE_USER_SELECTED_FILES = readonly;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = "Bitbucket Conventional Commits/Info.plist";
+				INFOPLIST_KEY_CFBundleDisplayName = "Bitbucket Conventional Commits";
+				INFOPLIST_KEY_NSHumanReadableCopyright = "";
+				INFOPLIST_KEY_NSMainStoryboardFile = Main;
+				INFOPLIST_KEY_NSPrincipalClass = NSApplication;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/../Frameworks",
+				);
+				MARKETING_VERSION = 1.0;
+				OTHER_LDFLAGS = (
+					"-framework",
+					SafariServices,
+					"-framework",
+					WebKit,
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = "com.jaredchristensen.bitbucket-conventional-commits";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				REGISTER_APP_GROUPS = YES;
+				STRING_CATALOG_GENERATE_SYMBOLS = YES;
+				SWIFT_APPROACHABLE_CONCURRENCY = YES;
+				SWIFT_DEFAULT_ACTOR_ISOLATION = MainActor;
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_UPCOMING_FEATURE_MEMBER_IMPORT_VISIBILITY = YES;
+				SWIFT_VERSION = 5.0;
+			};
+			name = Debug;
+		};
+		DBFD219F2F1756CB00CD3AF7 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_STYLE = Automatic;
+				COMBINE_HIDPI_IMAGES = YES;
+				CURRENT_PROJECT_VERSION = 1;
+				ENABLE_APP_SANDBOX = YES;
+				ENABLE_HARDENED_RUNTIME = YES;
+				ENABLE_OUTGOING_NETWORK_CONNECTIONS = YES;
+				ENABLE_USER_SELECTED_FILES = readonly;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = "Bitbucket Conventional Commits/Info.plist";
+				INFOPLIST_KEY_CFBundleDisplayName = "Bitbucket Conventional Commits";
+				INFOPLIST_KEY_NSHumanReadableCopyright = "";
+				INFOPLIST_KEY_NSMainStoryboardFile = Main;
+				INFOPLIST_KEY_NSPrincipalClass = NSApplication;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/../Frameworks",
+				);
+				MARKETING_VERSION = 1.0;
+				OTHER_LDFLAGS = (
+					"-framework",
+					SafariServices,
+					"-framework",
+					WebKit,
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = "com.jaredchristensen.bitbucket-conventional-commits";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				REGISTER_APP_GROUPS = YES;
+				STRING_CATALOG_GENERATE_SYMBOLS = YES;
+				SWIFT_APPROACHABLE_CONCURRENCY = YES;
+				SWIFT_DEFAULT_ACTOR_ISOLATION = MainActor;
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_UPCOMING_FEATURE_MEMBER_IMPORT_VISIBILITY = YES;
+				SWIFT_VERSION = 5.0;
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		DBFD216F2F1756CA00CD3AF7 /* Build configuration list for PBXProject "Bitbucket Conventional Commits" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				DBFD21972F1756CB00CD3AF7 /* Debug */,
+				DBFD21982F1756CB00CD3AF7 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		DBFD21992F1756CB00CD3AF7 /* Build configuration list for PBXNativeTarget "Bitbucket Conventional Commits Extension" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				DBFD219A2F1756CB00CD3AF7 /* Debug */,
+				DBFD219B2F1756CB00CD3AF7 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		DBFD219D2F1756CB00CD3AF7 /* Build configuration list for PBXNativeTarget "Bitbucket Conventional Commits" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				DBFD219E2F1756CB00CD3AF7 /* Debug */,
+				DBFD219F2F1756CB00CD3AF7 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = DBFD216C2F1756CA00CD3AF7 /* Project object */;
+}

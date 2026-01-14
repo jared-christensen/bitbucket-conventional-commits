@@ -26,16 +26,30 @@ function cleanupCommitMessage(message: string, jiraId: string | null): string {
     firstLine = firstLine.replace(/\s{2,}/g, " ");
   }
 
+  // Fix space before scope: "feat (scope):" → "feat(scope):"
+  firstLine = firstLine.replace(/^([a-zA-Z]+)\s+\(/, "$1(");
+
+  // Fix missing colon after scope: "feat(scope) desc" → "feat(scope): desc"
+  firstLine = firstLine.replace(/^([a-zA-Z]+\([^)]+\)!?)\s+(?!:)/, "$1: ");
+
   // Match the conventional commit format: type(scope): description or type: description
   const match = firstLine.match(/^([a-zA-Z]+)(\([^)]+\))?(!)?(:\s*)(.*)$/);
   if (match) {
     const [, type, scope = "", bang = "", , description] = match;
 
+    // Normalize scope to kebab-case
+    let cleanScope = scope;
+    if (scope) {
+      const scopeContent = scope.slice(1, -1);
+      const kebabScope = scopeContent.toLowerCase().trim().replace(/\s+/g, "-");
+      cleanScope = `(${kebabScope})`;
+    }
+
     // Normalize: lowercase type, lowercase description start, remove ending punctuation
     const cleanDesc = description.charAt(0).toLowerCase() + description.slice(1);
     const finalDesc = cleanDesc.replace(/[.!?]+$/, "");
 
-    firstLine = `${type.toLowerCase()}${scope}${bang}: ${finalDesc}`;
+    firstLine = `${type.toLowerCase()}${cleanScope}${bang}: ${finalDesc}`;
   }
 
   lines[0] = firstLine;

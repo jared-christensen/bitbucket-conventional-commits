@@ -1,0 +1,14 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(find:*)",
+      "WebFetch(domain:extensionworkshop.com)",
+      "WebSearch",
+      "Bash(pnpm build-firefox:*)",
+      "Bash(export PATH=\"$HOME/.nvm/versions/node/v24.13.0/bin:$PATH\")",
+      "Bash(corepack enable:*)",
+      "Bash(node -e:*)",
+      "Bash(pnpm build-chrome:*)"
+    ]
+  }
+}

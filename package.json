@@ -49,6 +49,14 @@
   "manifest": {
     "host_permissions": [
       "https://bitbucket.org/*"
-    ]
+    ],
+    "browser_specific_settings": {
+      "gecko": {
+        "data_collection_permissions": {
+          "required": ["none"],
+          "optional": []
+        }
+      }
+    }
   }
 }

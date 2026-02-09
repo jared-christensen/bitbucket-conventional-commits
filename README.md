@@ -15,7 +15,7 @@ A browser extension that adds conventional commit linting and AI-powered commit 
 ## Get the Extension
 
 - [Chrome Web Store](https://chromewebstore.google.com/detail/bitbucket-conventional-co/hldhjbpmeomlaienhkdkcmlfnglhahih)
-- Firefox Coming Soon
+- [Firefox Add-ons](https://addons.mozilla.org/en-US/firefox/addon/bitbucket-conventional-commits/)
 - Edge Coming Soon
 
 ---
